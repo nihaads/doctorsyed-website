@@ -26,7 +26,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Schema: LocalBusiness + Physician -->
     <script type="application/ld+json">
@@ -50,7 +50,8 @@
         "openingHoursSpecification": [
             { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "09:00", "closes": "16:00" },
             { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Thursday"], "opens": "10:30", "closes": "18:30" },
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "10:30", "closes": "16:30" }
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "10:30", "closes": "16:30" },
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "17:00", "closes": "20:00", "description": "Walk-in urgent care" }
         ],
         "medicalSpecialty": "Family Medicine",
         "availableService": [
@@ -147,12 +148,19 @@
         .nav__logo { display: flex; align-items: center; }
         .nav__wordmark { height: 28px; width: auto; transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .nav.scrolled .nav__wordmark { height: 24px; }
-        .nav__links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav__links { display: flex; align-items: center; gap: 2rem; list-style: none; margin-left: auto; margin-right: 2rem; }
         .nav__links a {
             font-size: 0.85rem; font-weight: 400; color: rgba(255,255,255,0.8);
             letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.3s;
         }
         .nav__links a:hover { color: var(--amber-light); }
+        .nav__links a:not(.nav__phone) { position: relative; }
+        .nav__links a:not(.nav__phone)::after {
+            content: ''; position: absolute; left: 0; bottom: -4px; width: 100%; height: 1px;
+            background: var(--amber-light); transform: scaleX(0); transform-origin: left;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav__links a:not(.nav__phone):hover::after { transform: scaleX(1); }
         .nav__cta {
             display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.6rem 1.3rem; background: var(--amber);
@@ -173,10 +181,10 @@
         .nav__phone svg { width: 14px; height: 14px; flex-shrink: 0; }
         .hero__contact {
             margin-top: 1.25rem; font-size: 0.85rem;
-            color: rgba(255,255,255,0.55); letter-spacing: 0.02em;
+            color: rgba(255,255,255,0.72); letter-spacing: 0.02em;
         }
         .hero__contact a {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.85);
             border-bottom: 1px solid rgba(196,154,108,0.3);
             transition: color 0.3s, border-color 0.3s;
         }
@@ -184,8 +192,13 @@
         .hero__contact svg { width: 12px; height: 12px; vertical-align: -1px; margin-right: 0.2rem; }
         .hero__languages {
             margin-top: 0.5rem; font-size: 0.85rem;
-            color: rgba(255,255,255,0.55); letter-spacing: 0.02em;
+            color: rgba(255,255,255,0.72); letter-spacing: 0.02em;
         }
+        .grain {
+            position: absolute; inset: 0; opacity: 0.05; pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .nav__actions { display: flex; align-items: center; gap: 0.9rem; }
         .nav__mobile-toggle {
             display: none; background: none; border: none; cursor: pointer; padding: 0.5rem;
         }
@@ -231,10 +244,12 @@
             gap: 4rem;
             align-items: center;
         }
-        .hero__content {
-            opacity: 0;
-            animation: fadeUp 0.8s 0.3s forwards;
-        }
+        .hero__content > * { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .hero__content > *:nth-child(1) { animation-delay: 0.15s; }
+        .hero__content > *:nth-child(2) { animation-delay: 0.3s; }
+        .hero__content > *:nth-child(3) { animation-delay: 0.5s; }
+        .hero__content > *:nth-child(4) { animation-delay: 0.65s; }
+        .hero__content > *:nth-child(5) { animation-delay: 0.78s; }
         .hero__eyebrow {
             font-family: var(--font-body);
             font-size: 0.8rem; font-weight: 500;
@@ -300,6 +315,11 @@
             border-radius: 12px;
             z-index: 1;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: photoReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+        @keyframes photoReveal {
+            from { clip-path: inset(0 0 100% 0 round 12px); }
+            to { clip-path: inset(0 0 0 0 round 12px); }
         }
         .hero__photo-accent {
             display: none;
@@ -341,13 +361,15 @@
         .about__credentials { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; margin-bottom: 2rem; }
         .about__credential {
             position: relative; display: inline-flex; align-items: center; gap: 0.5rem;
+            width: fit-content;
             padding: 0.5rem 1rem; background: var(--warm-white); border: 1px solid var(--border-light);
             border-radius: 4px; font-size: 0.85rem; font-weight: 500; color: var(--navy); cursor: help;
         }
         .about__credential[data-tooltip]::after {
-            content: attr(data-tooltip); position: absolute; bottom: calc(100% + 8px); left: 50%;
-            transform: translateX(-50%); padding: 0.5rem 0.85rem; background: var(--navy); color: #fff;
-            font-size: 0.78rem; font-weight: 400; line-height: 1.4; letter-spacing: 0; white-space: nowrap;
+            content: attr(data-tooltip); position: absolute; bottom: calc(100% + 8px); left: 0;
+            padding: 0.5rem 0.85rem; background: var(--navy); color: #fff;
+            font-size: 0.78rem; font-weight: 400; line-height: 1.4; letter-spacing: 0;
+            width: max-content; max-width: 260px;
             border-radius: 4px; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 10;
         }
         .about__credential[data-tooltip]:hover::after,
@@ -359,10 +381,11 @@
         .about__languages strong { font-weight: 500; color: var(--navy); }
         .about__aside { margin-top: 2.5rem; }
         .about__quote {
-            font-family: var(--font-display); font-size: 1.4rem; font-weight: 500;
-            font-style: italic; line-height: 1.5; color: var(--navy);
-            padding: 2rem 2.5rem; background: var(--warm-white);
+            font-family: var(--font-display); font-size: 1.5rem; font-weight: 600;
+            font-style: italic; line-height: 1.55; color: var(--navy);
+            padding: 2.25rem 2.5rem; background: var(--warm-white);
             border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 14px rgba(27, 42, 61, 0.06);
         }
 
         /* SERVICES */
@@ -371,10 +394,23 @@
         .services__intro p { font-size: 1.1rem; line-height: 1.8; color: var(--charcoal-light); }
         .services__grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 1.25rem; }
         .service-card {
+            position: relative; overflow: hidden;
             background: var(--cream); padding: 2.25rem 2rem; border-radius: 8px;
             border: 1px solid var(--border-light); transition: background 0.3s, border-color 0.3s, transform 0.3s;
         }
-        .service-card:hover { background: var(--cream-dark); border-color: var(--amber-soft); transform: translateY(-2px); }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--amber); transform: scaleX(0); transform-origin: left;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .service-card:hover { background: var(--cream-dark); border-color: var(--amber-soft); transform: translateY(-3px); }
+        .service-card:hover::before { transform: scaleX(1); }
+        .services__grid.visible .service-card { animation: fadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+        .services__grid.visible .service-card:nth-child(2) { animation-delay: 0.08s; }
+        .services__grid.visible .service-card:nth-child(3) { animation-delay: 0.16s; }
+        .services__grid.visible .service-card:nth-child(4) { animation-delay: 0.24s; }
+        .services__grid.visible .service-card:nth-child(5) { animation-delay: 0.32s; }
+        .services__grid.visible .service-card:nth-child(6) { animation-delay: 0.4s; }
         .service-card__icon { width: 44px; height: 44px; margin-bottom: 1.25rem; color: var(--amber); }
         .service-card__title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; letter-spacing: -0.005em; }
         .service-card__desc { font-size: 1rem; line-height: 1.65; color: var(--charcoal-light); }
@@ -407,6 +443,18 @@
         }
         .clinic__info-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); font-weight: 500; margin-bottom: 0.25rem; }
         .clinic__info-value { font-size: 1rem; color: var(--charcoal); font-weight: 400; }
+        .clinic__info-note { margin-top: 0.35rem; font-size: 0.85rem; color: var(--text-muted); }
+        .clinic__hours { display: grid; grid-template-columns: max-content 1fr; column-gap: 1.1rem; row-gap: 0.35rem; }
+        .clinic__hours-day {
+            font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--text-muted); padding-top: 0.2rem;
+        }
+        .clinic__hours-time { font-size: 1rem; color: var(--charcoal); }
+        .clinic__hours-walkin {
+            display: flex; align-items: center; gap: 0.45rem;
+            margin-top: 0.15rem; font-size: 1rem; font-weight: 400; color: var(--charcoal);
+        }
+        .clinic__hours-walkin::before { content: ''; width: 14px; height: 2px; background: var(--amber); border-radius: 1px; }
         .clinic__info-value a { color: var(--navy); font-weight: 500; border-bottom: 1px solid var(--amber-soft); transition: border-color 0.3s; }
         .clinic__info-value a:hover { border-color: var(--amber); }
         .clinic__map { border-radius: 8px; overflow: hidden; border: 1px solid var(--border-light); aspect-ratio: 4/3; }
@@ -430,9 +478,10 @@
         .faq__question:hover { color: var(--amber); }
         .faq__question svg { flex-shrink: 0; width: 20px; height: 20px; color: var(--amber); transition: transform 0.3s; margin-left: 1rem; }
         .faq__item.active .faq__question svg { transform: rotate(45deg); }
-        .faq__answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s; }
-        .faq__item.active .faq__answer { max-height: 300px; }
-        .faq__answer p { padding-bottom: 1.5rem; font-size: 1rem; line-height: 1.8; color: var(--charcoal-light); }
+        .faq__answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+        .faq__item.active .faq__answer { grid-template-rows: 1fr; }
+        .faq__answer p { overflow: hidden; min-height: 0; padding-bottom: 0; font-size: 1rem; line-height: 1.8; color: var(--charcoal-light); transition: padding-bottom 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+        .faq__item.active .faq__answer p { padding-bottom: 1.5rem; }
 
         /* CTA BAND */
         .cta-band { padding: var(--section-pad) 1.5rem; background: var(--navy); text-align: center; position: relative; overflow: hidden; }
@@ -440,6 +489,11 @@
             position: absolute; inset: 0; opacity: 0.06;
             background: radial-gradient(circle at 30% 50%, var(--amber) 0%, transparent 50%),
                         radial-gradient(circle at 70% 50%, var(--amber-light) 0%, transparent 50%);
+        }
+        .cta-band__watermark {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-family: var(--font-display); font-style: italic; font-size: 20rem; line-height: 1;
+            color: var(--amber); opacity: 0.05; pointer-events: none; user-select: none;
         }
         .cta-band__content { position: relative; max-width: 600px; margin: 0 auto; }
         .cta-band h2 {
@@ -449,15 +503,23 @@
         .cta-band p { font-size: 1.05rem; color: rgba(255,255,255,0.6); margin-bottom: 2rem; line-height: 1.7; }
 
         /* FOOTER */
-        .footer { background: var(--navy-dark); padding: 3rem 1.5rem; }
+        .footer { background: var(--navy-dark); padding: 3.5rem 1.5rem 3rem; }
         .footer__inner {
-            max-width: var(--content-max); margin: 0 auto; display: flex; align-items: center;
-            justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+            max-width: var(--content-max); margin: 0 auto; display: flex; align-items: flex-start;
+            justify-content: space-between; flex-wrap: wrap; gap: 2rem;
         }
-        .footer__info { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.7; }
-        .footer__info a { color: rgba(255,255,255,0.6); border-bottom: 1px solid rgba(255,255,255,0.15); transition: color 0.3s; }
+        .footer__brand { display: flex; align-items: flex-start; gap: 1.25rem; }
+        .footer__monogram {
+            font-family: var(--font-display); font-style: italic; font-weight: 500;
+            font-size: 2.2rem; line-height: 1; color: var(--amber);
+        }
+        .footer__info { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+        .footer__info a { color: rgba(255,255,255,0.75); border-bottom: 1px solid rgba(255,255,255,0.2); transition: color 0.3s; }
         .footer__info a:hover { color: var(--amber-light); }
-        .footer__copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+        .footer__links { display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.85rem; }
+        .footer__links a { color: rgba(255,255,255,0.65); border-bottom: 1px solid rgba(255,255,255,0.15); width: fit-content; transition: color 0.3s; }
+        .footer__links a:hover { color: var(--amber-light); }
+        .footer__copy { font-size: 0.8rem; color: rgba(255,255,255,0.5); width: 100%; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
 
         /* ANIMATIONS */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -486,6 +548,7 @@
         }
         @media (max-width: 760px) {
             .nav__links { display: none; }
+            .nav__cta { padding: 0.5rem 0.95rem; font-size: 0.76rem !important; }
             .nav__links.open {
                 display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0;
                 background: rgba(27, 42, 61, 0.98); padding: 1.5rem; gap: 1.2rem;
@@ -494,11 +557,14 @@
             .nav__mobile-toggle { display: block; }
             .services__grid { grid-template-columns: 1fr; }
             .onsite-banner { flex-direction: column; text-align: center; }
-            .about__quote { font-size: 1.3rem; padding: 1.5rem; }
+            .about__quote { font-size: 1.35rem; padding: 1.75rem 1.5rem; }
         }
 
-        /* ACCESSIBILITY */
+        /* ACCESSIBILITY & POLISH */
         :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+        ::selection { background: var(--amber-soft); color: var(--navy-dark); }
+        section[id], header[id] { scroll-margin-top: 5rem; }
+        .about__credential:focus-visible::after { opacity: 1; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -524,10 +590,7 @@
                 <text x="0" y="78" font-family="'Cormorant Garamond', Garamond, serif" font-size="80" letter-spacing="-1" fill="#FAF7F2"><tspan font-weight="300">Dr.</tspan><tspan font-weight="400" dx="6">Nihaad</tspan><tspan font-weight="400" font-style="italic" fill="#C49A6C" dx="10">Syed</tspan></text>
             </svg>
         </a>
-        <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'); document.querySelector('.nav__links').classList.toggle('open')">
-            <span></span><span></span><span></span>
-        </button>
-        <ul class="nav__links">
+        <ul class="nav__links" id="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#clinic">Clinic</a></li>
@@ -536,11 +599,16 @@
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5C3 3.7 3.7 3 4.5 3h1.7c.4 0 .8.3.9.7l.7 2.4c.1.4 0 .8-.3 1l-1.1.9c.9 1.7 2.3 3.1 4 4l.9-1.1c.3-.3.6-.4 1-.3l2.4.7c.4.1.7.5.7.9v1.7c0 .8-.7 1.5-1.5 1.5h-1C7.4 14 3 9.6 3 4z"/></svg>
                 905-668-3378 (Ext. 3)
             </a></li>
-            <li><a href="https://www.whitbyclinic.ca/waiting-list" class="nav__cta" target="_blank" rel="noopener">
+        </ul>
+        <div class="nav__actions">
+            <a href="https://www.whitbyclinic.ca/waiting-list" class="nav__cta" target="_blank" rel="noopener">
                 Register
                 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a></li>
-        </ul>
+            </a>
+            <button class="nav__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'); document.querySelector('.nav__links').classList.toggle('open')">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </nav>
 
     <!-- HERO -->
@@ -555,7 +623,7 @@
                     <span class="hero__title-sub">Family Doctor in Whitby<br>Accepting New Patients</span>
                 </h1>
                 <a href="https://www.whitbyclinic.ca/waiting-list" class="hero__cta" target="_blank" rel="noopener">
-                    Register Now
+                    Register as a New Patient
                     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
                 </a>
                 <p class="hero__contact">
@@ -591,17 +659,17 @@
                     <p class="section__label">About Dr. Syed</p>
                     <h2 class="section__heading">Your family doctor,<br>for the long run</h2>
                     <div class="about__credentials">
-                        <span class="about__credential" data-tooltip="Bachelor of Medicine & Surgery, University of Sheffield"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>MBChB</span>
-                        <span class="about__credential" data-tooltip="Certification in Family Medicine, College of Family Physicians of Canada"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>CCFP</span>
-                        <span class="about__credential" data-tooltip="Membership examination of the Royal College of General Practitioners, UK"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>MRCGP</span>
-                        <span class="about__credential" data-tooltip="Diploma in Child Health, Royal College of Paediatrics & Child Health, UK"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>DCH</span>
-                        <span class="about__credential" data-tooltip="Diploma in Obstetrics & Gynaecology, Royal College of Obstetricians & Gynaecologists, UK"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>DRCOG</span>
+                        <span class="about__credential" tabindex="0" data-tooltip="Bachelor of Medicine & Surgery, University of Sheffield"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>MBChB</span>
+                        <span class="about__credential" tabindex="0" data-tooltip="Certification in Family Medicine, College of Family Physicians of Canada"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>CCFP</span>
+                        <span class="about__credential" tabindex="0" data-tooltip="Membership examination of the Royal College of General Practitioners, UK"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>MRCGP</span>
+                        <span class="about__credential" tabindex="0" data-tooltip="Diploma in Child Health, Royal College of Paediatrics & Child Health, UK"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>DCH</span>
+                        <span class="about__credential" tabindex="0" data-tooltip="Diploma in Obstetrics & Gynaecology, Royal College of Obstetricians & Gynaecologists, UK"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>DRCOG</span>
                     </div>
                     <div class="divider"></div>
                     <p>Dr. Syed studied medicine at the University of Sheffield and completed his family medicine training in London, England. His clinical experience spans a wide range of specialties, including psychiatry, emergency medicine, and geriatrics, with dedicated qualifications in child health and women's health. That breadth helps him care for patients at every stage of life, from everyday concerns to more complex medical needs.</p>
                     <p>What shapes his day-to-day practice is straightforward: listen carefully, explain things properly, and work with the person in front of you to make practical decisions about their health. It's the same approach he brought to teaching medical students at Imperial College London. Break it down, make it useful, make sure it sticks.</p>
                     <p>Outside the clinic, Dr. Syed hikes, reads widely, is never far from a camera, and remains an optimistic but unconvincing guitarist.</p>
-                    <p>Dr. Syed is a UK-trained, certified family physician licensed by the <a href="https://register.cpso.on.ca/physician-info/?cpsonum=157352" target="_blank" rel="noopener">College of Physicians and Surgeons of Ontario</a>. He is currently welcoming new patients at The Whitby Clinic.</p>
+                    <p>Dr. Syed is a UK-trained, certified family physician licensed by the College of Physicians and Surgeons of Ontario. He is currently welcoming new patients at The Whitby Clinic.</p>
                 </div>
                 <div class="about__aside reveal">
                     <blockquote class="about__quote">"Good medicine isn't just finding the problem. It's helping you understand what matters, and what comes next."</blockquote>
@@ -681,11 +749,16 @@
                     </div>
                     <div class="clinic__info-item">
                         <div class="clinic__info-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M3 7h14"/><path d="M7 3v4M13 3v4"/></svg></div>
-                        <div><p class="clinic__info-label">Dr. Syed's Office Hours</p><p class="clinic__info-value">Monday: 9:00 am – 4:00 pm<br>Tuesday: 10:30 am – 6:30 pm<br>Wednesday: 10:30 am – 4:30 pm<br>Thursday: 10:30 am – 6:30 pm</p></div>
+                        <div><p class="clinic__info-label">Dr. Syed's Office Hours</p><div class="clinic__hours">
+                            <span class="clinic__hours-day">Mon</span><span class="clinic__hours-time">9:00 am – 4:00 pm</span>
+                            <span class="clinic__hours-day">Tue</span><span class="clinic__hours-time">10:30 am – 6:30 pm</span>
+                            <span class="clinic__hours-day">Wed</span><span class="clinic__hours-time">10:30 am – 4:30 pm<span class="clinic__hours-walkin">Walk-in urgent care 5:00 pm – 8:00 pm</span></span>
+                            <span class="clinic__hours-day">Thu</span><span class="clinic__hours-time">10:30 am – 6:30 pm</span>
+                        </div></div>
                     </div>
                     <div class="clinic__info-item">
                         <div class="clinic__info-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7"/><path d="M10 6v4l3 3"/></svg></div>
-                        <div><p class="clinic__info-label">Urgent Care</p><p class="clinic__info-value">Monday – Thursday: 5:00 pm – 8:00 pm<br>Saturday: 10:00 am – 2:00 pm</p></div>
+                        <div><p class="clinic__info-label">Walk-In Urgent Care (Clinic)</p><p class="clinic__info-value">Monday – Thursday: 5:00 pm – 8:00 pm<br>Saturday: 10:00 am – 2:00 pm</p><p class="clinic__info-note">Dr. Syed covers the Wednesday evening walk-in shift.</p></div>
                     </div>
                     <div class="clinic__info-item">
                         <div class="clinic__info-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="16" height="10" rx="2"/><path d="M6 6V4a4 4 0 0 1 8 0v2"/></svg></div>
@@ -712,14 +785,14 @@
                 <div class="divider"></div>
             </div>
             <div class="reveal">
-                <div class="faq__item"><button class="faq__question" aria-expanded="false">How do I register as a new patient?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer" role="region"><p>You can register through the Whitby Clinic's new patient waiting list by clicking the "Register as a New Patient" button on this page. Once your registration is received, our team will be in touch to book your first appointment. Please have your Ontario Health Card ready.</p></div></div>
-                <div class="faq__item"><button class="faq__question" aria-expanded="false">Is Dr. Syed accepting new patients?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer" role="region"><p>Yes. Dr. Nihaad Syed is currently accepting new patients at the Whitby Clinic, 200 Brock Street North, Whitby, Ontario. Patients of all ages are welcome, from newborns to elderly.</p></div></div>
-                <div class="faq__item"><button class="faq__question" aria-expanded="false">What should I bring to my first appointment?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer" role="region"><p>Please bring your valid Ontario Health Card (OHIP), a list of your current medications (including dosages), any relevant medical records or recent test results, and a list of questions or health concerns you'd like to discuss. If you're transferring from another physician, let the clinic know so records can be requested.</p></div></div>
-                <div class="faq__item"><button class="faq__question" aria-expanded="false">What happens at my first appointment?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer" role="region"><p>Your first visit is a meet-and-greet. Dr. Syed will review your medical history, go over your current medications, and check that you're up to date with any recommended screening and immunisations for your age. He'll arrange baseline blood work and ask about any ongoing health concerns so you can put together a plan, starting with what matters most to you.</p></div></div>
-                <div class="faq__item"><button class="faq__question" aria-expanded="false">Does Dr. Syed speak any languages other than English?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer" role="region"><p>Yes. Dr. Syed offers consultations in English, Hindi, and Urdu. Please mention your preferred language when booking and the team will do their best to accommodate.</p></div></div>
-                <div class="faq__item"><button class="faq__question" aria-expanded="false">What areas does Dr. Syed serve?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer" role="region"><p>Dr. Syed welcomes patients from across Durham Region, including Whitby, Oshawa, Ajax, Brooklin, and surrounding communities. The Whitby Clinic is centrally located on Brock Street North with free parking available.</p></div></div>
-                <div class="faq__item"><button class="faq__question" aria-expanded="false">Is there parking at the clinic?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer" role="region"><p>Yes, free parking is available on the north side of the building with two parking lots for patient use. The clinic is also accessible by Durham Region Transit.</p></div></div>
-                <div class="faq__item"><button class="faq__question" aria-expanded="false">What on-site services are available?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer" role="region"><p>The Whitby Clinic building houses a full range of services under one roof: X-ray and ultrasound imaging, mammography (Ontario Breast Screening Program), Lifelabs laboratory for blood work, a pharmacy, physiotherapy, massage therapy, orthotics and bracing, and a medical spa. This means fewer trips and more convenience for your care.</p></div></div>
+                <div class="faq__item"><button class="faq__question" aria-expanded="false">How do I register as a new patient?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer"><p>You can register through the Whitby Clinic's new patient waiting list by clicking the "Register as a New Patient" button on this page. Once your registration is received, our team will be in touch to book your first appointment. Please have your Ontario Health Card ready.</p></div></div>
+                <div class="faq__item"><button class="faq__question" aria-expanded="false">Is Dr. Syed accepting new patients?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer"><p>Yes. Dr. Nihaad Syed is currently accepting new patients at the Whitby Clinic, 200 Brock Street North, Whitby, Ontario. Patients of all ages are welcome, from newborns to elderly.</p></div></div>
+                <div class="faq__item"><button class="faq__question" aria-expanded="false">What should I bring to my first appointment?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer"><p>Please bring your valid Ontario Health Card (OHIP), a list of your current medications (including dosages), any relevant medical records or recent test results, and a list of questions or health concerns you'd like to discuss. If you're transferring from another physician, let the clinic know so records can be requested.</p></div></div>
+                <div class="faq__item"><button class="faq__question" aria-expanded="false">What happens at my first appointment?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer"><p>Your first visit is a meet-and-greet. Dr. Syed will review your medical history, go over your current medications, and check that you're up to date with any recommended screening and immunisations for your age. He'll arrange baseline blood work and ask about any ongoing health concerns so you can put together a plan, starting with what matters most to you.</p></div></div>
+                <div class="faq__item"><button class="faq__question" aria-expanded="false">Does Dr. Syed speak any languages other than English?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer"><p>Yes. Dr. Syed offers consultations in English, Hindi, and Urdu. Please mention your preferred language when booking and the team will do their best to accommodate.</p></div></div>
+                <div class="faq__item"><button class="faq__question" aria-expanded="false">What areas does Dr. Syed serve?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer"><p>Dr. Syed welcomes patients from across Durham Region, including Whitby, Oshawa, Ajax, Brooklin, and surrounding communities. The Whitby Clinic is centrally located on Brock Street North with free parking available.</p></div></div>
+                <div class="faq__item"><button class="faq__question" aria-expanded="false">Is there parking at the clinic?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer"><p>Yes, free parking is available on the north side of the building with two parking lots for patient use. The clinic is also accessible by Durham Region Transit.</p></div></div>
+                <div class="faq__item"><button class="faq__question" aria-expanded="false">What on-site services are available?<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 4v12M4 10h12"/></svg></button><div class="faq__answer"><p>The Whitby Clinic building houses a full range of services under one roof: X-ray and ultrasound imaging, mammography (Ontario Breast Screening Program), Lifelabs laboratory for blood work, a pharmacy, physiotherapy, massage therapy, orthotics and bracing, and a medical spa. This means fewer trips and more convenience for your care.</p></div></div>
             </div>
         </div>
     </section>
@@ -727,6 +800,8 @@
     <!-- CTA BAND -->
     <section class="cta-band">
         <div class="cta-band__bg" aria-hidden="true"></div>
+        <div class="grain" aria-hidden="true"></div>
+        <span class="cta-band__watermark" aria-hidden="true">Ns</span>
         <div class="cta-band__content reveal">
             <h2>Ready to find your<br>family doctor?</h2>
             <p>Dr. Syed is accepting new patients of all ages in Whitby and across Durham Region.</p>
@@ -740,9 +815,15 @@
     <!-- FOOTER -->
     <footer class="footer" role="contentinfo">
         <div class="footer__inner">
-            <div class="footer__info">
-                <strong style="color: rgba(255,255,255,0.7);">Dr. Nihaad Syed</strong> · Whitby Clinic<br>
-                200 Brock Street North, Whitby, ON L1N 4H5 · <a href="tel:9056683378">905-668-3378</a> (Ext. 3)
+            <div class="footer__brand">
+                <span class="footer__monogram" aria-hidden="true">Ns</span>
+                <div class="footer__info">
+                    <strong style="color: rgba(255,255,255,0.85);">Dr. Nihaad Syed</strong> · Whitby Clinic<br>
+                    200 Brock Street North, Whitby, ON L1N 4H5 · <a href="tel:9056683378">905-668-3378</a> (Ext. 3)
+                </div>
+            </div>
+            <div class="footer__links">
+                <a href="https://www.whitbyclinic.ca" target="_blank" rel="noopener">Whitby Clinic</a>
             </div>
             <div class="footer__copy">&copy; 2026 Dr. Nihaad Syed. All rights reserved.</div>
         </div>
@@ -787,6 +868,32 @@
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.about__credential')) document.querySelectorAll('.about__credential').forEach(b => b.classList.remove('tooltip-active'));
         });
+
+        // Conversion tracking
+        if (typeof gtag === 'function') {
+            document.querySelectorAll('a[href^="tel:"]').forEach(a => a.addEventListener('click', () => {
+                gtag('event', 'phone_call_click', { link_location: (a.closest('section, header, nav, footer') || {}).id || 'nav' });
+            }));
+            document.querySelectorAll('a[href*="waiting-list"]').forEach(a => a.addEventListener('click', () => {
+                gtag('event', 'register_click', { link_location: (a.closest('section, header, nav, footer') || {}).id || 'nav' });
+            }));
+        }
+
+        // Subtle hero photo parallax
+        const heroFrame = document.querySelector('.hero__photo-frame');
+        if (heroFrame && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const y = window.scrollY;
+                        if (y < window.innerHeight) heroFrame.style.transform = 'translateY(' + (y * 0.06) + 'px)';
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
     </script>
 </body>
 </html>
