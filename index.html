@@ -121,8 +121,12 @@
             --dur-fast: 0.35s;   /* taps, hovers, colour changes */
             --dur-move: 0.45s;   /* things that open: menu, FAQ */
             --dur-slow: 0.9s;    /* headings settling into place */
+            /* Spring curve (real spring physics, a touch of bounce): used where things land, like the Services tags */
+            --spring: cubic-bezier(0.22, 1.2, 0.36, 1);
+            --dur-spring: 0.75s;
         }
 
+        @supports (transition-timing-function: linear(0, 1)) { :root { --spring: linear(0, 0.0412, 0.1398, 0.266, 0.3996, 0.5276, 0.6424, 0.7402, 0.8202, 0.8832, 0.9308, 0.9653, 0.9892, 1.0047, 1.0139, 1.0185, 1.0199, 1.0193, 1.0174, 1.0149, 1.0122, 1.0097, 1.0074, 1.0054, 1.0037, 1.0024, 1.0015, 1.0008, 1.0003, 0.9999, 0.9997, 0.9996, 0.9996, 0.9996, 0.9996, 0.9997, 1); } }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
@@ -441,7 +445,23 @@
             background: var(--warm-white); border: 1px solid var(--border-light); border-radius: 24px;
             padding: 1.5rem 1.4rem 1.6rem; margin-bottom: 1rem;
             box-shadow: 0 -6px 24px rgba(27, 42, 61, 0.06);
-            transform-origin: 50% 0; will-change: transform;
+            transform-origin: 50% 0; will-change: transform; transform: translateZ(0);
+            isolation: isolate;
+        }
+        /* Quiet rhythm: every other card a shade deeper, so the stack reads as layers */
+        .service-group:nth-child(even) { background: #F4EEE4; border-color: #E6DED1; }
+        .service-group:nth-child(even) .service-tags li { background: var(--warm-white); }
+        /* Shade as a card gets covered: an overlay's opacity (cheap for the phone to draw), not a filter */
+        .service-group::after {
+            content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+            background: var(--navy); opacity: var(--shade, 0); z-index: 1;
+        }
+        /* Tags arrive just after their card, one after another, on a spring */
+        .js-tags .service-tags li { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.96); }
+        .js-tags .arrived .service-tags li {
+            opacity: 1; transform: none;
+            transition: opacity 0.4s var(--ease), transform var(--dur-spring) var(--spring);
+            transition-delay: calc(0.12s + var(--i, 0) * 50ms);
         }
         .service-group h3 .amp { font-size: 1em; }
         .service-group h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 500; color: var(--navy); line-height: 1.2; margin-bottom: 0.3rem; }
@@ -464,7 +484,12 @@
             .service-tags li { font-size: 0.95rem; padding: 0.65rem 0.9rem; }
         }
         @media (max-width: 760px) {
-            .services__outro { border-top: none; padding-top: 1rem; }
+            /* Phones: intro, then the cards, then the "Not on the list?" line */
+            .services__layout { display: flex; flex-direction: column; }
+            .services__side { display: contents; }
+            .services__intro { order: 0; }
+            .services__groups { order: 1; }
+            .services__outro { order: 2; border-top: none; padding-top: 1rem; margin-top: 0.5rem; }
         }
             .service-group h3 { font-size: 1.55rem; }
             .services__outro { border-top: none; padding-top: 1rem; }
@@ -997,23 +1022,32 @@
             });
         }
 
-        // Services cards (phones): number them for the stacking offset, and shrink each card back a little as the next one covers it
+        // Services cards: number them for the stacking offset; as the next card covers one, it shrinks back a touch and darkens slightly.
+        // All measurements are read first, then all changes written, so the phone never has to recalculate layout mid-frame.
         const cards = [...document.querySelectorAll('.service-group')];
         cards.forEach((c, i) => c.style.setProperty('--n', i));
+        document.querySelectorAll('.service-tags').forEach(t => [...t.children].forEach((li, i) => li.style.setProperty('--i', i)));
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             let raf = null;
             const stack = () => {
                 raf = null;
+                const rects = cards.map(c => c.getBoundingClientRect());
+                const covered = rects.map((a, i) => { const b = rects[i + 1]; return b ? Math.min(1, Math.max(0, (a.bottom - b.top) / a.height)) : 0; });
                 cards.forEach((c, i) => {
-                    const next = cards[i + 1]; if (!next) { c.style.transform = ''; return; }
-                    const a = c.getBoundingClientRect(), b = next.getBoundingClientRect();
-                    const covered = Math.min(1, Math.max(0, (a.bottom - b.top) / a.height));
-                    c.style.transform = 'scale(' + (1 - covered * 0.05).toFixed(4) + ')';
-                    c.style.filter = 'brightness(' + (1 - covered * 0.04).toFixed(4) + ')';
+                    c.style.transform = 'translateZ(0) scale(' + (1 - covered[i] * 0.05).toFixed(4) + ')';
+                    c.style.setProperty('--shade', (covered[i] * 0.05).toFixed(4));
                 });
             };
             window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(stack); }, { passive: true });
             window.addEventListener('resize', stack); stack();
+            // Tags: hidden only once we know the script is running, then revealed as each card arrives
+            if ('IntersectionObserver' in window) {
+                document.querySelector('.services').classList.add('js-tags');
+                const tagObserver = new IntersectionObserver((entries) => entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add('arrived'); tagObserver.unobserve(e.target); }
+                }), { rootMargin: '0px 0px -18% 0px' });
+                cards.forEach(c => tagObserver.observe(c));
+            }
         }
 
         // Subtle hero photo parallax
