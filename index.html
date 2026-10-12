@@ -26,7 +26,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Schema: LocalBusiness + Physician -->
     <script type="application/ld+json">
@@ -102,6 +102,7 @@
             --amber: #C49A6C;
             --amber-light: #D4B08C;
             --amber-soft: #E8D5BF;
+            --amber-text: #8C6A3E; /* deeper amber for small text on cream: 4.6:1 contrast */
             --sage: #8FAA8C;
             --cream: #FAF7F2;
             --cream-dark: #F0EBE3;
@@ -137,7 +138,7 @@
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
             padding: 1rem 1.5rem;
             display: flex; align-items: center; justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .nav.scrolled {
             background: rgba(27, 42, 61, 0.97);
@@ -244,12 +245,12 @@
             gap: 4rem;
             align-items: center;
         }
-        .hero__content > * { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .hero__content > *:nth-child(1) { animation-delay: 0.15s; }
-        .hero__content > *:nth-child(2) { animation-delay: 0.3s; }
-        .hero__content > *:nth-child(3) { animation-delay: 0.5s; }
-        .hero__content > *:nth-child(4) { animation-delay: 0.65s; }
-        .hero__content > *:nth-child(5) { animation-delay: 0.78s; }
+        .hero__content > * { opacity: 0; animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .hero__content > *:nth-child(1) { animation-delay: 0.05s; }
+        .hero__content > *:nth-child(2) { animation-delay: 0.12s; }
+        .hero__content > *:nth-child(3) { animation-delay: 0.2s; }
+        .hero__content > *:nth-child(4) { animation-delay: 0.27s; }
+        .hero__content > *:nth-child(5) { animation-delay: 0.33s; }
         .hero__eyebrow {
             font-family: var(--font-body);
             font-size: 0.8rem; font-weight: 500;
@@ -290,7 +291,7 @@
             justify-content: center;
             align-items: center;
             opacity: 0;
-            animation: fadeUp 0.8s 0.6s forwards;
+            animation: fadeUp 0.6s 0.15s forwards;
         }
         .hero__photo-frame {
             position: relative;
@@ -315,7 +316,7 @@
             border-radius: 12px;
             z-index: 1;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: photoReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+            animation: photoReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
         }
         @keyframes photoReveal {
             from { clip-path: inset(0 0 100% 0 round 12px); }
@@ -331,7 +332,7 @@
             color: rgba(255,255,255,0.3); font-size: 0.7rem;
             text-transform: uppercase; letter-spacing: 0.15em;
             display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-            opacity: 0; animation: fadeUp 0.8s 1.2s forwards;
+            opacity: 0; animation: fadeUp 0.6s 0.8s forwards;
         }
         .hero__scroll-line {
             width: 1px; height: 40px;
@@ -409,12 +410,6 @@
         }
         .service-card:hover { background: var(--cream-dark); border-color: var(--amber-soft); transform: translateY(-3px); }
         .service-card:hover::before { transform: scaleX(1); }
-        .services__grid.visible .service-card { animation: fadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
-        .services__grid.visible .service-card:nth-child(2) { animation-delay: 0.08s; }
-        .services__grid.visible .service-card:nth-child(3) { animation-delay: 0.16s; }
-        .services__grid.visible .service-card:nth-child(4) { animation-delay: 0.24s; }
-        .services__grid.visible .service-card:nth-child(5) { animation-delay: 0.32s; }
-        .services__grid.visible .service-card:nth-child(6) { animation-delay: 0.4s; }
         .service-card__icon { width: 44px; height: 44px; margin-bottom: 1.25rem; color: var(--amber); }
         .service-card__title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--navy); margin-bottom: 0.6rem; letter-spacing: -0.005em; }
         .service-card__desc { font-size: 1rem; line-height: 1.65; color: var(--charcoal-light); }
@@ -528,8 +523,8 @@
         /* ANIMATIONS */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
+        /* Sections no longer fade in on scroll: content is simply there. Motion is kept for the hero, photo and FAQ. */
+        .reveal, .reveal.visible { opacity: 1; transform: none; }
 
         /* RESPONSIVE */
         @media (max-width: 900px) {
@@ -568,6 +563,14 @@
         :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
         ::selection { background: var(--amber-soft); color: var(--navy-dark); }
         section[id], header[id] { scroll-margin-top: 5rem; }
+
+        /* Section labels: one consistent style. Earlier paragraph rules were turning
+           the About and Services labels grey and larger; amber was too faint on cream. */
+        .section p.section__label {
+            font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; line-height: 1.5;
+            text-transform: uppercase; letter-spacing: 0.2em; color: var(--amber-text); margin-bottom: 1rem;
+        }
+        strong, b { font-weight: 600; }
         .about__credential:focus-visible::after { opacity: 1; }
         .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
         @media (prefers-reduced-motion: reduce) {
