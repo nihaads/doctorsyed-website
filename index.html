@@ -585,6 +585,15 @@
         /* Headings break into even lines on phones (no single word left dangling) */
         h1, h2, h3, .faq__question { text-wrap: balance; }
         p { text-wrap: pretty; }
+        /* Section headings settle into place line by line as they scroll into view (Wealthsimple-style).
+           Only headings move; body text is always there. Added by script, so without JS nothing is hidden. */
+        .rise-word { display: inline-block; }
+        .js-rise .rise-word {
+            opacity: 0; transform: translateY(0.4em);
+            transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+            transition-delay: calc(var(--line, 0) * 90ms);
+        }
+        .js-rise.risen .rise-word { opacity: 1; transform: none; }
         /* Press feedback: hover effects do nothing on a phone, so buttons respond to the tap itself */
         .hero__cta:active, .nav__cta:active { transform: scale(0.97); transition-duration: 0.1s; }
         .about__credential:focus-visible::after { opacity: 1; }
@@ -900,6 +909,40 @@
             document.querySelectorAll('a[href*="waiting-list"]').forEach(a => a.addEventListener('click', () => {
                 gtag('event', 'register_click', { link_location: (a.closest('section, header, nav, footer') || {}).id || 'nav' });
             }));
+        }
+
+        // Headings rise into place, one line after another, the first time they scroll into view
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+            const split = (node) => {
+                [...node.childNodes].forEach(child => {
+                    if (child.nodeType === 3) {
+                        const frag = document.createDocumentFragment();
+                        child.textContent.split(/(\s+)/).forEach(part => {
+                            if (!part) return;
+                            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+                            const w = document.createElement('span'); w.className = 'rise-word'; w.textContent = part; frag.appendChild(w);
+                        });
+                        child.replaceWith(frag);
+                    } else if (child.nodeType === 1 && child.tagName !== 'BR') split(child);
+                });
+            };
+            const numberLines = (h) => {
+                let line = -1, lastTop = null;
+                h.querySelectorAll('.rise-word').forEach(w => {
+                    const top = w.offsetTop;
+                    if (lastTop === null || Math.abs(top - lastTop) > 4) { line++; lastTop = top; }
+                    w.style.setProperty('--line', line);
+                });
+            };
+            const riseObserver = new IntersectionObserver((entries) => entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                numberLines(e.target);
+                e.target.classList.add('risen');
+                riseObserver.unobserve(e.target);
+            }), { rootMargin: '0px 0px -12% 0px' });
+            document.querySelectorAll('.section__heading, .cta-band h2').forEach(h => {
+                split(h); h.classList.add('js-rise'); riseObserver.observe(h);
+            });
         }
 
         // Subtle hero photo parallax
