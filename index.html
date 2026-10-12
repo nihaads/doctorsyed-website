@@ -24,6 +24,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <!-- Fonts -->
+    <link rel="preload" as="image" type="image/webp" imagesrcset="headshot-600.webp 600w, headshot-900.webp 900w, headshot.webp 1122w" imagesizes="(max-width: 768px) 260px, 380px" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600&family=IM+Fell+English:ital@1&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
@@ -736,8 +737,8 @@
             <div class="hero__photo-wrapper">
                 <div class="hero__photo-frame">
                     <picture>
-                        <source srcset="headshot.webp" type="image/webp">
-                        <img src="headshot.jpg" alt="Dr. Nihaad Syed, Family Physician at the Whitby Clinic" class="hero__photo" width="1122" height="1402" fetchpriority="high">
+                        <source srcset="headshot-600.webp 600w, headshot-900.webp 900w, headshot.webp 1122w" sizes="(max-width: 768px) 260px, 380px" type="image/webp">
+                        <img src="headshot.jpg" alt="Dr. Nihaad Syed, Family Physician at the Whitby Clinic" class="hero__photo" width="1122" height="1402" fetchpriority="high" decoding="async" style="background: url(data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAABwBACdASoQABQAPtFUo0uoJKMhsAgBABoJQBdmSAED4Kqdk4xC1rmgrp8k4AD+aSNU2b8GjmbIrOVyDp2JgTbHbYUGEzrclgy5t8MonyIqJ9yxsRIx8QpgbIylywlguyvn8Pd6nNeGD+t6lzRYMImMewDNcmYb6Gy8e/G1q0dZqOq72vmKT/+C7bNaMEeu2ZTKqXMAAAA=) center/cover;">
                     </picture>
                     <div class="hero__photo-accent" aria-hidden="true"></div>
                 </div>
