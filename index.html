@@ -601,7 +601,12 @@
             .about__grid { max-width: calc(var(--content-max) + 60px); }
             .about__text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: clamp(3rem, 6vw, 6rem); align-items: start; }
             .about__text > * { grid-column: 2; }
-            .about__head { grid-column: 1; grid-row: 1 / span 12; position: sticky; top: 7rem; }
+            .about__head {
+                grid-column: 1; grid-row: 1 / span 12; align-self: center;
+                /* stays in the middle of the screen (below the menu bar) while the text scrolls past */
+                position: sticky; top: calc(50vh + 32px - var(--head-h, 420px) / 2);
+                transform: translateZ(0); /* own layer, so Safari moves it smoothly */
+            }
             .about__credentials { margin-top: 0.4rem; }
             .about__quote--flow { display: none; }
             .about__quote--side { display: block; margin-top: 2.75rem; font-size: clamp(1.6rem, 0.7rem + 1vw, 2.05rem); padding: 2.25rem 2.25rem; }
@@ -1051,7 +1056,11 @@
                     c.style.setProperty('--shade', (covered[i] * 0.05).toFixed(4));
                 });
             };
-            window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(stack); }, { passive: true });
+            let servicesOnScreen = true;
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver(([e]) => { servicesOnScreen = e.isIntersecting; if (servicesOnScreen) stack(); }).observe(document.querySelector('.services'));
+            }
+            window.addEventListener('scroll', () => { if (servicesOnScreen && !raf) raf = requestAnimationFrame(stack); }, { passive: true });
             window.addEventListener('resize', stack); stack();
             // Tags: hidden only once we know the script is running, then revealed as each card arrives
             if ('IntersectionObserver' in window) {
@@ -1061,6 +1070,12 @@
                 }), { rootMargin: '0px 0px -18% 0px' });
                 cards.forEach(c => tagObserver.observe(c));
             }
+        }
+
+        // About (laptops): measure the heading + quote block so it can sit in the middle of the screen
+        const aboutHead = document.querySelector('.about__head');
+        if (aboutHead && 'ResizeObserver' in window) {
+            new ResizeObserver(([e]) => aboutHead.style.setProperty('--head-h', e.contentRect.height + 'px')).observe(aboutHead);
         }
 
         // Subtle hero photo parallax
