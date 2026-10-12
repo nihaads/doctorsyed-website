@@ -411,7 +411,8 @@
         .roof { background: var(--warm-white); }
         .roof__intro { max-width: var(--content-narrow); margin-bottom: 2rem; }
         .roof__intro p { font-size: 1.1rem; line-height: 1.8; color: var(--charcoal-light); }
-        .roof__panel { padding: 0.25rem clamp(1.5rem, 4vw, 2.5rem) 1rem; text-align: center; }
+        .roof__panel { padding: 0.25rem clamp(1.5rem, 4vw, 2.5rem) 0.75rem; text-align: center; }
+        .roof__plate + .roof__list { margin-top: 0.5rem; }
         .roof__plate {
             font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-light);
             padding: 1.4rem 0 1.1rem; border-bottom: 1px solid rgba(196,154,108,0.35);
@@ -745,21 +746,17 @@
             </div>
             <div class="panel roof__panel reveal">
                 <p class="roof__plate">200 Brock Street North</p>
-                <p class="roof__group">Within the Clinic</p>
                 <ul class="roof__list">
-                    <li>Paediatrics</li>
-                    <li>Internal Medicine</li>
-                    <li>Nurse Practitioner</li>
+                    <li>Paediatrics<small>By referral</small></li>
+                    <li>Internal Medicine<small>By referral</small></li>
                     <li>Registered Dietitian</li>
                     <li>Physiotherapy <span class="amp">&amp;</span> Massage</li>
                     <li>Orthotics <span class="amp">&amp;</span> Bracing</li>
-                </ul>
-                <p class="roof__group">In the Building</p>
-                <ul class="roof__list">
                     <li>X-ray <span class="amp">&amp;</span> Ultrasound</li>
                     <li>Mammography<small>Ontario Breast Screening Program</small></li>
                     <li>LifeLabs<small>Blood work, ECG <span class="amp">&amp;</span> Holter monitoring</small></li>
                     <li>Pharmacy</li>
+                    <li>Medical Spa</li>
                 </ul>
             </div>
         </div>
