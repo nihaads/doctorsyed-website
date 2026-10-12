@@ -435,10 +435,16 @@
         .services { background: var(--cream); }
         .services__intro { max-width: var(--content-narrow); margin-bottom: 2.5rem; }
         .services__intro p { font-size: 1.1rem; line-height: 1.8; color: var(--charcoal-light); }
-        .services__groups { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 3.5rem; }
-        .service-group { padding: 1.75rem 0; border-top: 1px solid var(--border-light); }
+        .services__groups { display: block; }
+        .service-group {
+            position: sticky; top: calc(4.75rem + var(--n, 0) * 0.6rem);
+            background: var(--warm-white); border: 1px solid var(--border-light); border-radius: 24px;
+            padding: 1.5rem 1.4rem 1.6rem; margin-bottom: 1rem;
+            box-shadow: 0 -6px 24px rgba(27, 42, 61, 0.06);
+            transform-origin: 50% 0; will-change: transform;
+        }
         .service-group h3 .amp { font-size: 1em; }
-        .service-group h3 { font-family: var(--font-display); font-size: 1.65rem; font-weight: 500; color: var(--navy); line-height: 1.2; margin-bottom: 0.3rem; }
+        .service-group h3 { font-family: var(--font-display); font-size: 1.55rem; font-weight: 500; color: var(--navy); line-height: 1.2; margin-bottom: 0.3rem; }
         .service-group p { font-size: 0.98rem; line-height: 1.6; color: var(--charcoal-light); margin-bottom: 1rem; }
         .service-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .service-tags li { font-size: 0.92rem; line-height: 1; color: var(--navy); background: #EEE7DC; border-radius: 4px; padding: 0.6rem 0.8rem; }
@@ -446,17 +452,20 @@
             margin-top: 0.5rem; padding-top: 1.75rem; border-top: 1px solid var(--border-light);
             font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 2.4vw, 1.55rem); line-height: 1.45; color: var(--navy);
         }
-        /* Phones: each group is a card. As you scroll, the next card slides up and stacks over the last
-           (Wispr Flow reference). Nothing to tap; the cards behind shrink back slightly. */
+        /* Laptops: the heading and intro stay put on the left while the cards stack on the right */
+        @media (min-width: 761px) {
+            .services__layout { display: grid; grid-template-columns: 5fr 7fr; column-gap: clamp(3rem, 6vw, 6rem); align-items: start; }
+            .services__side { position: sticky; top: 6rem; }
+            .services__intro { margin-bottom: 2rem; }
+            .services__outro { margin-top: 0; padding-top: 1.5rem; }
+            .service-group { padding: 2.25rem 2.25rem 2.4rem; margin-bottom: 1.25rem; top: calc(6rem + var(--n, 0) * 0.75rem); }
+            .service-group h3 { font-size: 1.9rem; }
+            .service-group p { font-size: 1.05rem; }
+            .service-tags li { font-size: 0.95rem; padding: 0.65rem 0.9rem; }
+        }
         @media (max-width: 760px) {
-            .services__groups { display: block; }
-            .service-group {
-                position: sticky; top: calc(4.75rem + var(--n, 0) * 0.6rem);
-                background: var(--warm-white); border: 1px solid var(--border-light); border-radius: 24px;
-                padding: 1.5rem 1.4rem 1.6rem; margin-bottom: 1rem;
-                box-shadow: 0 -6px 24px rgba(27, 42, 61, 0.06);
-                transform-origin: 50% 0; will-change: transform;
-            }
+            .services__outro { border-top: none; padding-top: 1rem; }
+        }
             .service-group h3 { font-size: 1.55rem; }
             .services__outro { border-top: none; padding-top: 1rem; }
         }
@@ -771,12 +780,15 @@
 
     <!-- SERVICES -->
     <section class="section services" id="services">
-        <div class="section__container">
+        <div class="section__container services__layout">
+            <div class="services__side">
             <div class="services__intro reveal">
                 <p class="section__label">Services</p>
                 <h2 class="section__heading">Family medicine for every stage of life</h2>
                 <div class="divider"></div>
                 <p>Your family doctor is the place to start for almost any health concern. These are some of the things Dr. Syed helps with.</p>
+            </div>
+            <p class="services__outro">Not on the list? Bring it anyway. If it needs a specialist, he&rsquo;ll refer you to the right one.</p>
             </div>
             <div class="services__groups">
                 <div class="service-group"><h3>Everyday concerns</h3><p>The things that bring most people in.</p>
@@ -796,7 +808,6 @@
                 <div class="service-group"><h3>Older adults</h3><p>Staying well and independent.</p>
                     <ul class="service-tags"><li>Medication reviews</li><li>Memory concerns</li><li>Falls prevention</li></ul></div>
             </div>
-            <p class="services__outro">Not on the list? Bring it anyway. If it needs a specialist, he&rsquo;ll refer you to the right one.</p>
         </div>
     </section>
 
@@ -993,7 +1004,6 @@
             let raf = null;
             const stack = () => {
                 raf = null;
-                if (!window.matchMedia('(max-width: 760px)').matches) { cards.forEach(c => c.style.transform = ''); return; }
                 cards.forEach((c, i) => {
                     const next = cards[i + 1]; if (!next) { c.style.transform = ''; return; }
                     const a = c.getBoundingClientRect(), b = next.getBoundingClientRect();
