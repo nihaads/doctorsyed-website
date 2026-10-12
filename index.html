@@ -409,17 +409,26 @@
 
         /* UNDER ONE ROOF */
         .roof { background: var(--warm-white); }
-        .roof__intro { max-width: var(--content-narrow); margin-bottom: 2.5rem; }
+        .roof__intro { max-width: var(--content-narrow); margin-bottom: 2rem; }
         .roof__intro p { font-size: 1.1rem; line-height: 1.8; color: var(--charcoal-light); }
+        .roof__panel { padding: 0.25rem clamp(1.5rem, 4vw, 2.5rem) 1rem; text-align: center; }
+        .roof__plate {
+            font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-light);
+            padding: 1.4rem 0 1.1rem; border-bottom: 1px solid rgba(196,154,108,0.35);
+        }
+        .roof__group {
+            font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+            color: rgba(255,255,255,0.5); margin: 1.6rem 0 0.2rem;
+        }
         .roof__list { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 3rem; }
         .roof__list li {
-            display: flex; align-items: baseline; gap: 0.85rem;
-            padding: 1.05rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-size: 1.05rem; line-height: 1.45; color: rgba(255,255,255,0.92);
+            font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; line-height: 1.25; color: var(--cream);
+            padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .roof__list li::before { content: ''; flex-shrink: 0; width: 14px; height: 1px; background: var(--amber); transform: translateY(-0.3em); }
-        .roof__list small { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-top: 0.15rem; }
-        .roof__note { margin-top: 1.75rem; font-size: 0.95rem; color: rgba(255,255,255,0.68); line-height: 1.6; }
+        .roof__list li:last-child { border-bottom: none; }
+        @media (min-width: 761px) { .roof__list li:nth-last-child(2):nth-child(odd) { border-bottom: none; } }
+        .roof__list small { display: block; font-family: var(--font-body); font-size: 0.76rem; letter-spacing: 0.02em; color: rgba(255,255,255,0.55); margin-top: 0.2rem; }
+        .amp { font-family: var(--font-display); font-style: italic; color: var(--amber-light); }
 
         /* SERVICES */
         .services { background: var(--cream); }
@@ -731,23 +740,27 @@
         <div class="section__container">
             <div class="roof__intro reveal">
                 <p class="section__label">At the Clinic</p>
-                <h2 class="section__heading">Everything under one roof</h2>
+                <h2 class="section__heading">Under one roof</h2>
                 <div class="divider"></div>
-                <p>The Whitby Clinic building has imaging, a lab and a pharmacy inside, so more of your care stays in one place.</p>
             </div>
-            <div class="panel reveal">
-                <h3 class="panel__title">In the building</h3>
+            <div class="panel roof__panel reveal">
+                <p class="roof__plate">200 Brock Street North</p>
+                <p class="roof__group">Within the Clinic</p>
                 <ul class="roof__list">
-                    <li><span>X-ray and ultrasound</span></li>
-                    <li><span>Mammography<small>Ontario Breast Screening Program</small></span></li>
-                    <li><span>LifeLabs blood work</span></li>
-                    <li><span>Pharmacy</span></li>
-                    <li><span>Registered dietitian</span></li>
-                    <li><span>Physiotherapy</span></li>
-                    <li><span>Massage therapy</span></li>
-                    <li><span>Orthotics and bracing</span></li>
+                    <li>Paediatrics</li>
+                    <li>Internal Medicine</li>
+                    <li>Nurse Practitioner</li>
+                    <li>Registered Dietitian</li>
+                    <li>Physiotherapy <span class="amp">&amp;</span> Massage</li>
+                    <li>Orthotics <span class="amp">&amp;</span> Bracing</li>
                 </ul>
-                <p class="roof__note">Also on site: a medical spa. All at 200 Brock Street North, with free parking on the north side.</p>
+                <p class="roof__group">In the Building</p>
+                <ul class="roof__list">
+                    <li>X-ray <span class="amp">&amp;</span> Ultrasound</li>
+                    <li>Mammography<small>Ontario Breast Screening Program</small></li>
+                    <li>LifeLabs<small>Blood work, ECG <span class="amp">&amp;</span> Holter monitoring</small></li>
+                    <li>Pharmacy</li>
+                </ul>
             </div>
         </div>
     </section>
