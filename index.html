@@ -472,7 +472,9 @@
             .services__side { position: sticky; top: var(--stick); transform: translateZ(0); }
             .services__intro { margin-bottom: 2rem; }
             .services__outro { margin-top: 0; padding-top: 1.5rem; }
-            .service-group { padding: 2.25rem 2.25rem 2.4rem; margin-bottom: 1.25rem; top: calc(var(--stick) + var(--n, 0) * 0.75rem); }
+            .service-group { padding: 2.25rem 2.25rem 2.4rem; margin-bottom: 0; top: calc(var(--stick) + var(--n, 0) * 0.75rem); }
+            /* every card the height of the tallest, so at the end of the list the pile settles evenly instead of taller cards poking out */
+            .services__groups { display: grid; grid-auto-rows: 1fr; row-gap: 1.25rem; }
             .service-group h3 { font-size: 1.9rem; }
             .service-group p { font-size: 1.05rem; }
             .service-tags li { font-size: 0.95rem; padding: 0.65rem 0.9rem; }
@@ -624,7 +626,9 @@
         }
         /* LAPTOP: sign-up band keeps its centred, boxy shape but is less tall, and matches the width of the page column */
         @media (min-width: 1100px) {
-            .cta-band { max-width: var(--content-max); padding: clamp(3.5rem, 5vw, 4.75rem) 2rem; }
+            .cta-band { max-width: var(--content-narrow); padding: clamp(3.5rem, 5vw, 4.75rem) 2rem; }
+            .faq { padding-bottom: clamp(3.5rem, 5vw, 4.5rem); } /* the band sits closer to the FAQs */
+            .clinic__map { position: sticky; top: max(7rem, 20vh); transform: translateZ(0); } /* map holds in view while the details scroll, like About and Services */
             .cta-band p { margin-bottom: 1.75rem; }
         }
         /* RESPONSIVE */
