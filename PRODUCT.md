@@ -51,7 +51,8 @@ Things a neighbouring doctor could not truthfully copy, all confirmed by Dr. Sye
 - **Feel (his words):** warm and personal, bespoke, classic but modern.
 - **Name:** Dr. Nihaad Syed. Credentials: MBChB, CCFP, MRCGP, DCH, DRCOG.
 - **Headshot:** keep the existing one. No new photos.
-- **Copy:** the current site copy is in his voice. Refine it, don't replace it.
+- **Copy:** the current site copy is in his voice. Refine it, don't replace it. Patients regularly comment on the guitar and camera lines in the bio and find them endearing: keep them.
+- **Reference he admires:** Wealthsimple, especially its mobile site, for smooth motion and flow. Borrow principles, not their look.
 - **Monogram:** he likes the Ns monogram and wants it developed into a proper logo that feels unique to him. Use it as a signature in a few contained places, never as background pattern or repeated ornament.
 - **Palette and type (kept, chosen deliberately):** navy #1B2A3D, amber #C49A6C, cream #FAF7F2; Cormorant Garamond for display, Outfit for body. He reviewed three alternative directions on 12 Oct 2026 and preferred these. They are a brand choice, not a default.
 - **Retiring:** the italic amber "Syed" in the wordmark (he now sees it everywhere), the small capitals label above the hero heading, and amber used for body text (fails contrast on cream). Amber stays for lines, the logo and accents.
