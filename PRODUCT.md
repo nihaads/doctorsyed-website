@@ -53,7 +53,8 @@ Things a neighbouring doctor could not truthfully copy, all confirmed by Dr. Sye
 - **Headshot:** keep the existing one. No new photos.
 - **Copy:** the current site copy is in his voice. Refine it, don't replace it.
 - **Monogram:** he likes the Ns monogram and wants it developed into a proper logo that feels unique to him. Use it as a signature in a few contained places, never as background pattern or repeated ornament.
-- **Retiring:** the cream, navy and amber palette, Cormorant Garamond with Outfit, and the italic amber "Syed". He liked these at first but now sees them everywhere as stock AI design.
+- **Palette and type (kept, chosen deliberately):** navy #1B2A3D, amber #C49A6C, cream #FAF7F2; Cormorant Garamond for display, Outfit for body. He reviewed three alternative directions on 12 Oct 2026 and preferred these. They are a brand choice, not a default.
+- **Retiring:** the italic amber "Syed" in the wordmark (he now sees it everywhere), the small capitals label above the hero heading, and amber used for body text (fails contrast on cream). Amber stays for lines, the logo and accents.
 - **Past feedback (July 2026 redesign, rejected):** dislikes numbered section labels, drop caps, credentials stacked vertically, photo below text on mobile, and frame details that spill outside the photo. Likes small doses of subtle motion and the nav that shrinks on scroll. Wants changes in small stages he can stop.
 
 ## Evidence on Hand
