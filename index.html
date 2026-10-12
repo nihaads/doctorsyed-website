@@ -413,6 +413,8 @@
         .roof__intro p { font-size: 1.1rem; line-height: 1.8; color: var(--charcoal-light); }
         .roof__panel { padding: 0.25rem clamp(1.5rem, 4vw, 2.5rem) 0.75rem; text-align: center; }
         .roof__plate + .roof__list { margin-top: 0.5rem; }
+        /* phones: clinic name and address on two tidy lines; laptops: one line with a dot between */
+        @media (max-width: 760px) { .roof__plate-line { display: block; } .roof__plate-line + .roof__plate-line { margin-top: 0.35rem; } .roof__plate-dot { display: none; } }
         .roof__plate {
             font-size: 0.72rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-light);
             padding: 1.4rem 0 1.1rem; border-bottom: 1px solid rgba(196,154,108,0.35);
@@ -504,7 +506,8 @@
             border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--amber);
         }
         .clinic__info-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); font-weight: 500; margin-bottom: 0.25rem; }
-        .clinic__info-value { font-size: 1rem; color: var(--charcoal); font-weight: 400; }
+        .clinic__info-value { font-size: 1rem; color: var(--charcoal); font-weight: 400; text-wrap: wrap; }
+        .clinic__info-item > div:last-child { flex: 1; min-width: 0; } /* text uses the full width, so '200 Brock Street North' stays on one line */
         .clinic__info-note { margin-top: 0.35rem; font-size: 0.85rem; color: var(--text-muted); }
         .clinic__hours { display: grid; grid-template-columns: max-content 1fr; column-gap: 1.1rem; row-gap: 0.35rem; }
         .clinic__hours-day {
@@ -825,7 +828,7 @@
                 <div class="divider"></div>
             </div>
             <div class="panel roof__panel reveal">
-                <p class="roof__plate">200 Brock Street North</p>
+                <p class="roof__plate"><span class="roof__plate-line">Whitby Clinic</span><span class="roof__plate-dot"> &middot; </span><span class="roof__plate-line">200 Brock Street North</span></p>
                 <ul class="roof__list">
                     <li><span class="roof__name">Pharmacy</span></li>
                     <li><span class="roof__name">LifeLabs</span><small>Blood work, ECG <span class="amp">&amp;</span> Holter monitoring</small></li>
