@@ -612,24 +612,20 @@
             .about__quote--flow { display: none; }
             .about__quote--side { display: block; margin-top: 2.75rem; font-size: clamp(1.6rem, 0.7rem + 1vw, 2.05rem); padding: 2.25rem 2.25rem; }
         }
-        /* LAPTOP: Under one roof reads like a building directory: names on the left, what's there on the right of the same line */
+        /* LAPTOP: Under one roof keeps the phone design (centred names, detail underneath) in two even columns:
+           every row the same height, names centred in their row, a fine rule down the middle */
         @media (min-width: 1100px) {
-            .roof__panel { text-align: left; padding: 0.5rem clamp(2rem, 4vw, 3.25rem) 1.25rem; }
-            .roof__plate { text-align: left; }
-            .roof__list li { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 1.05rem 0; font-size: clamp(1.3rem, 0.6rem + 0.8vw, 1.55rem); }
-            .roof__list small { margin-top: 0; text-align: right; font-size: 0.82rem; }
+            .roof__panel { padding: 0.5rem clamp(2rem, 4vw, 3.25rem) 1.25rem; }
+            .roof__list { grid-auto-rows: 1fr; column-gap: 0; }
+            .roof__list li { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1.1rem 1.5rem; font-size: clamp(1.3rem, 0.6rem + 0.8vw, 1.5rem); }
+            .roof__list li:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.1); }
+            .roof__list small { margin-top: 0.3rem; }
+            .roof__plate + .roof__list { margin-top: 0; } /* centre rule meets the line under the address */
         }
+        /* LAPTOP: sign-up band keeps its centred, boxy shape but is less tall, and matches the width of the page column */
         @media (min-width: 1100px) {
-            .roof__list { column-gap: clamp(3rem, 5vw, 4.5rem); }
-        }
-        /* LAPTOP: sign-up band is a slim strip the width of the page column: words on the left, button on the right */
-        @media (min-width: 1100px) {
-            .cta-band { max-width: var(--content-max); text-align: left; padding: clamp(2.75rem, 4vw, 3.75rem) clamp(2.5rem, 4vw, 3.5rem); }
-            .cta-band__content { max-width: none; display: grid; grid-template-columns: 1fr auto; column-gap: 3rem; align-items: center; }
-            .cta-band h2 { grid-column: 1; margin-bottom: 0.4rem; font-size: clamp(2.2rem, 1rem + 1.5vw, 2.6rem); }
-            .cta-band h2 .cta-br { display: none; }
-            .cta-band p { grid-column: 1; margin-bottom: 0; }
-            .cta-band .hero__cta { grid-column: 2; grid-row: 1 / span 2; }
+            .cta-band { max-width: var(--content-max); padding: clamp(3.5rem, 5vw, 4.75rem) 2rem; }
+            .cta-band p { margin-bottom: 1.75rem; }
         }
         /* RESPONSIVE */
         @media (max-width: 900px) {
@@ -951,7 +947,7 @@
         <div class="grain" aria-hidden="true"></div>
         <span class="cta-band__watermark" aria-hidden="true">Ns</span>
         <div class="cta-band__content reveal">
-            <h2>Ready to find your <br class="cta-br">family doctor?</h2>
+            <h2>Ready to find your<br>family doctor?</h2>
             <p>Dr. Syed is accepting new patients of all ages in Whitby and across Durham Region.</p>
             <a href="https://www.whitbyclinic.ca/waiting-list" class="hero__cta" target="_blank" rel="noopener">
                 Register as a New Patient
