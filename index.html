@@ -312,8 +312,8 @@
         .hero__photo-frame::before {
             content: '';
             position: absolute;
-            inset: -8px;
-            border-radius: 16px;
+            inset: -4px; /* was 8px: thinner frame */
+            border-radius: 14px;
             background: linear-gradient(135deg, var(--amber) 0%, rgba(196,154,108,0.2) 50%, var(--amber-light) 100%);
             opacity: 0.4;
             z-index: 0;
