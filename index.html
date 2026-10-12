@@ -446,14 +446,30 @@
             margin-top: 0.5rem; padding-top: 1.75rem; border-top: 1px solid var(--border-light);
             font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 2.4vw, 1.55rem); line-height: 1.45; color: var(--navy);
         }
-        /* Services groups settle in as they reach you; tags follow one after another */
-        .js-groups .service-group h3, .js-groups .service-group p, .js-groups .services__outro { opacity: 0; transform: translateY(0.5em); }
-        .js-groups .service-tags li { opacity: 0; transform: translateY(6px) scale(0.94); }
-        .js-groups .in h3, .js-groups .in p, .js-groups .in .service-tags li, .js-groups .services__outro.in {
-            opacity: 1; transform: none; transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+        .service-group__toggle {
+            all: unset; box-sizing: border-box; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+            font: inherit; color: inherit; cursor: default;
         }
-        .js-groups .in p { transition-delay: 0.08s; }
-        .js-groups .in .service-tags li { transition-duration: 0.6s; transition-delay: calc(0.18s + var(--i, 0) * 45ms); }
+        .service-group__toggle svg { display: none; flex-shrink: 0; width: 20px; height: 20px; color: var(--amber); transition: transform var(--dur-move) var(--ease); }
+        .service-group__body { display: grid; grid-template-rows: 1fr; }
+        .service-group__body > div { min-height: 0; overflow: hidden; }
+        /* Phones: groups fold. Only the headings show; tap one to open it, and its tags slide in one after another */
+        @media (max-width: 760px) {
+            .service-group { padding: 0; }
+            .service-group__toggle { cursor: pointer; padding: 1.15rem 0; }
+            .service-group__toggle:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+            .service-group__toggle svg { display: block; }
+            .service-group.open .service-group__toggle svg { transform: rotate(45deg); }
+            .service-group h3 { margin-bottom: 0; }
+            .service-group__body { grid-template-rows: 0fr; transition: grid-template-rows var(--dur-move) var(--ease); }
+            .service-group.open .service-group__body { grid-template-rows: 1fr; }
+            .service-group__body > div { padding-bottom: 0; transition: padding-bottom var(--dur-move) var(--ease); }
+            .service-group.open .service-group__body > div { padding-bottom: 1.4rem; }
+            .service-group p, .service-tags li { opacity: 0; transform: translateY(6px); transition: opacity 0.25s var(--ease), transform 0.25s var(--ease); }
+            .service-group.open p, .service-group.open .service-tags li { opacity: 1; transform: none; transition-duration: 0.5s; }
+            .service-group.open .service-tags li { transition-delay: calc(0.08s + var(--i, 0) * 40ms); }
+            .services__outro { margin-top: 0; }
+        }
 
         /* CLINIC */
         .clinic { background: var(--warm-white); }
@@ -773,22 +789,30 @@
                 <p>Your family doctor is the place to start for almost any health concern. These are some of the things Dr. Syed helps with.</p>
             </div>
             <div class="services__groups">
-                <div class="service-group"><h3>Everyday concerns</h3><p>The things that bring most people in.</p>
-                    <ul class="service-tags"><li>Infections</li><li>Skin problems</li><li>Aches &amp; pains</li><li>Headaches</li><li>Allergies</li></ul></div>
-                <div class="service-group"><h3>Long-term conditions</h3><p>Regular reviews, and a plan you understand.</p>
-                    <ul class="service-tags"><li>Diabetes</li><li>High blood pressure</li><li>Cholesterol</li><li>Asthma &amp; COPD</li><li>Thyroid</li><li>Arthritis</li></ul></div>
-                <div class="service-group"><h3>Mental health</h3><p>If it&rsquo;s weighing on you, bring it up.</p>
-                    <ul class="service-tags"><li>Anxiety</li><li>Depression</li><li>Insomnia</li><li>Stress</li></ul></div>
-                <div class="service-group"><h3>Prevention <span class="amp">&amp;</span> lifestyle</h3><p>Small changes, made early, that add up.</p>
-                    <ul class="service-tags"><li>Cancer screening</li><li>Immunizations</li><li>Heart health</li><li>Sexual health</li><li>Quitting smoking</li></ul></div>
-                <div class="service-group"><h3>Women&rsquo;s health</h3><p>From contraception to menopause.</p>
-                    <ul class="service-tags"><li>Pap tests</li><li>Contraception</li><li>Prenatal care</li><li>Menopause</li></ul></div>
-                <div class="service-group"><h3>Men&rsquo;s health</h3><p>The checkups that tend to get put off.</p>
-                    <ul class="service-tags"><li>Prostate health</li><li>Erectile dysfunction</li><li>Testosterone</li></ul></div>
-                <div class="service-group"><h3>Babies <span class="amp">&amp;</span> children</h3><p>From the first weeks onwards.</p>
-                    <ul class="service-tags"><li>Well-baby visits</li><li>Childhood vaccines</li><li>Growth &amp; development</li></ul></div>
-                <div class="service-group"><h3>Older adults</h3><p>Staying well and independent.</p>
-                    <ul class="service-tags"><li>Medication reviews</li><li>Memory concerns</li><li>Falls prevention</li></ul></div>
+                <div class="service-group open"><h3><button class="service-group__toggle" aria-expanded="true"><span>Everyday concerns</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></h3>
+                    <div class="service-group__body"><div><p>The things that bring most people in.</p>
+                    <ul class="service-tags"><li>Infections</li><li>Skin problems</li><li>Aches &amp; pains</li><li>Headaches</li><li>Allergies</li></ul></div></div></div>
+                <div class="service-group"><h3><button class="service-group__toggle" aria-expanded="false"><span>Long-term conditions</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></h3>
+                    <div class="service-group__body"><div><p>Regular reviews, and a plan you understand.</p>
+                    <ul class="service-tags"><li>Diabetes</li><li>High blood pressure</li><li>Cholesterol</li><li>Asthma &amp; COPD</li><li>Thyroid</li><li>Arthritis</li></ul></div></div></div>
+                <div class="service-group"><h3><button class="service-group__toggle" aria-expanded="false"><span>Mental health</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></h3>
+                    <div class="service-group__body"><div><p>If it&rsquo;s weighing on you, bring it up.</p>
+                    <ul class="service-tags"><li>Anxiety</li><li>Depression</li><li>Insomnia</li><li>Stress</li></ul></div></div></div>
+                <div class="service-group"><h3><button class="service-group__toggle" aria-expanded="false"><span>Prevention <span class="amp">&amp;</span> lifestyle</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></h3>
+                    <div class="service-group__body"><div><p>Small changes, made early, that add up.</p>
+                    <ul class="service-tags"><li>Cancer screening</li><li>Immunizations</li><li>Heart health</li><li>Sexual health</li><li>Quitting smoking</li></ul></div></div></div>
+                <div class="service-group"><h3><button class="service-group__toggle" aria-expanded="false"><span>Women&rsquo;s health</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></h3>
+                    <div class="service-group__body"><div><p>From contraception to menopause.</p>
+                    <ul class="service-tags"><li>Pap tests</li><li>Contraception</li><li>Prenatal care</li><li>Menopause</li></ul></div></div></div>
+                <div class="service-group"><h3><button class="service-group__toggle" aria-expanded="false"><span>Men&rsquo;s health</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></h3>
+                    <div class="service-group__body"><div><p>The checkups that tend to get put off.</p>
+                    <ul class="service-tags"><li>Prostate health</li><li>Erectile dysfunction</li><li>Testosterone</li></ul></div></div></div>
+                <div class="service-group"><h3><button class="service-group__toggle" aria-expanded="false"><span>Babies <span class="amp">&amp;</span> children</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></h3>
+                    <div class="service-group__body"><div><p>From the first weeks onwards.</p>
+                    <ul class="service-tags"><li>Well-baby visits</li><li>Childhood vaccines</li><li>Growth &amp; development</li></ul></div></div></div>
+                <div class="service-group"><h3><button class="service-group__toggle" aria-expanded="false"><span>Older adults</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></h3>
+                    <div class="service-group__body"><div><p>Staying well and independent.</p>
+                    <ul class="service-tags"><li>Medication reviews</li><li>Memory concerns</li><li>Falls prevention</li></ul></div></div></div>
             </div>
             <p class="services__outro">Not on the list? Bring it anyway. If it needs a specialist, he&rsquo;ll refer you to the right one.</p>
         </div>
@@ -980,16 +1004,16 @@
             });
         }
 
-        // Services: each group settles in as it reaches you, tags follow one after another
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
-            const groupsWrap = document.querySelector('.services');
-            groupsWrap.classList.add('js-groups');
-            groupsWrap.querySelectorAll('.service-tags').forEach(t => [...t.children].forEach((li, i) => li.style.setProperty('--i', i)));
-            const groupObserver = new IntersectionObserver((entries) => entries.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('in'); groupObserver.unobserve(e.target); }
-            }), { rootMargin: '0px 0px -12% 0px' });
-            groupsWrap.querySelectorAll('.service-group, .services__outro').forEach(g => groupObserver.observe(g));
-        }
+        // Services: on phones the groups fold; tap a heading to open it (one open at a time)
+        document.querySelectorAll('.service-tags').forEach(t => [...t.children].forEach((li, i) => li.style.setProperty('--i', i)));
+        document.querySelectorAll('.service-group__toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!window.matchMedia('(max-width: 760px)').matches) return;
+                const group = btn.closest('.service-group'); const opening = !group.classList.contains('open');
+                document.querySelectorAll('.service-group').forEach(g => { g.classList.remove('open'); g.querySelector('.service-group__toggle').setAttribute('aria-expanded', 'false'); });
+                if (opening) { group.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+            });
+        });
 
         // Subtle hero photo parallax
         const heroFrame = document.querySelector('.hero__photo-frame');
