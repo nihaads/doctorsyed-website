@@ -55,7 +55,8 @@ Things a neighbouring doctor could not truthfully copy, all confirmed by Dr. Sye
 - **Reference he admires:** Wealthsimple, especially its mobile site, for smooth motion and flow. Borrow principles, not their look.
 - **Monogram:** he likes the Ns monogram and wants it developed into a proper logo that feels unique to him. Use it as a signature in a few contained places, never as background pattern or repeated ornament.
 - **Palette and type (kept, chosen deliberately):** navy #1B2A3D, amber #C49A6C, cream #FAF7F2; Cormorant Garamond for display, Outfit for body. He reviewed three alternative directions on 12 Oct 2026 and preferred these. They are a brand choice, not a default.
-- **Retiring:** the italic amber "Syed" in the wordmark (he now sees it everywhere), the small capitals label above the hero heading, and amber used for body text (fails contrast on cream). Amber stays for lines, the logo and accents.
+- **Retired (12 Oct 2026):** the small capitals label above the hero heading.
+- **Kept by his choice (12 Oct 2026):** the italic amber "Syed" in the wordmark, and amber in body text where it is used now. Both were once marked for retirement; he reviewed them and wants them left as they are. Do not raise them again.
 - **Past feedback (July 2026 redesign, rejected):** dislikes numbered section labels, drop caps, credentials stacked vertically, photo below text on mobile, and frame details that spill outside the photo. Likes small doses of subtle motion and the nav that shrinks on scroll. Wants changes in small stages he can stop.
 
 ## Evidence on Hand
