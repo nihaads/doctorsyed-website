@@ -612,6 +612,25 @@
             .about__quote--flow { display: none; }
             .about__quote--side { display: block; margin-top: 2.75rem; font-size: clamp(1.6rem, 0.7rem + 1vw, 2.05rem); padding: 2.25rem 2.25rem; }
         }
+        /* LAPTOP: Under one roof reads like a building directory: names on the left, what's there on the right of the same line */
+        @media (min-width: 1100px) {
+            .roof__panel { text-align: left; padding: 0.5rem clamp(2rem, 4vw, 3.25rem) 1.25rem; }
+            .roof__plate { text-align: left; }
+            .roof__list li { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 1.05rem 0; font-size: clamp(1.3rem, 0.6rem + 0.8vw, 1.55rem); }
+            .roof__list small { margin-top: 0; text-align: right; font-size: 0.82rem; }
+        }
+        @media (min-width: 1100px) {
+            .roof__list { column-gap: clamp(3rem, 5vw, 4.5rem); }
+        }
+        /* LAPTOP: sign-up band is a slim strip the width of the page column: words on the left, button on the right */
+        @media (min-width: 1100px) {
+            .cta-band { max-width: var(--content-max); text-align: left; padding: clamp(2.75rem, 4vw, 3.75rem) clamp(2.5rem, 4vw, 3.5rem); }
+            .cta-band__content { max-width: none; display: grid; grid-template-columns: 1fr auto; column-gap: 3rem; align-items: center; }
+            .cta-band h2 { grid-column: 1; margin-bottom: 0.4rem; font-size: clamp(2.2rem, 1rem + 1.5vw, 2.6rem); }
+            .cta-band h2 .cta-br { display: none; }
+            .cta-band p { grid-column: 1; margin-bottom: 0; }
+            .cta-band .hero__cta { grid-column: 2; grid-row: 1 / span 2; }
+        }
         /* RESPONSIVE */
         @media (max-width: 900px) {
             .clinic__grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -808,16 +827,16 @@
             <div class="panel roof__panel reveal">
                 <p class="roof__plate">200 Brock Street North</p>
                 <ul class="roof__list">
-                    <li>Pharmacy</li>
-                    <li>LifeLabs<small>Blood work, ECG <span class="amp">&amp;</span> Holter monitoring</small></li>
-                    <li>X-ray <span class="amp">&amp;</span> Ultrasound</li>
-                    <li>Mammography<small>Ontario Breast Screening Program</small></li>
-                    <li>Internal Medicine</li>
-                    <li>Pediatrics</li>
-                    <li>Registered Dietitian</li>
-                    <li>Physiotherapy <span class="amp">&amp;</span> Massage</li>
-                    <li>Orthotics <span class="amp">&amp;</span> Bracing</li>
-                    <li>Medical Spa</li>
+                    <li><span class="roof__name">Pharmacy</span></li>
+                    <li><span class="roof__name">LifeLabs</span><small>Blood work, ECG <span class="amp">&amp;</span> Holter monitoring</small></li>
+                    <li><span class="roof__name">X-ray <span class="amp">&amp;</span> Ultrasound</span></li>
+                    <li><span class="roof__name">Mammography</span><small>Ontario Breast Screening Program</small></li>
+                    <li><span class="roof__name">Internal Medicine</span></li>
+                    <li><span class="roof__name">Pediatrics</span></li>
+                    <li><span class="roof__name">Registered Dietitian</span></li>
+                    <li><span class="roof__name">Physiotherapy <span class="amp">&amp;</span> Massage</span></li>
+                    <li><span class="roof__name">Orthotics <span class="amp">&amp;</span> Bracing</span></li>
+                    <li><span class="roof__name">Medical Spa</span></li>
                 </ul>
             </div>
         </div>
@@ -932,7 +951,7 @@
         <div class="grain" aria-hidden="true"></div>
         <span class="cta-band__watermark" aria-hidden="true">Ns</span>
         <div class="cta-band__content reveal">
-            <h2>Ready to find your<br>family doctor?</h2>
+            <h2>Ready to find your <br class="cta-br">family doctor?</h2>
             <p>Dr. Syed is accepting new patients of all ages in Whitby and across Durham Region.</p>
             <a href="https://www.whitbyclinic.ca/waiting-list" class="hero__cta" target="_blank" rel="noopener">
                 Register as a New Patient
