@@ -200,6 +200,7 @@
             color: rgba(255,255,255,0.72); letter-spacing: 0.02em;
         }
         .hero__contact a {
+            white-space: nowrap;
             color: rgba(255,255,255,0.85);
             border-bottom: 1px solid rgba(196,154,108,0.3);
             transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
@@ -266,12 +267,6 @@
         .hero__content > *:nth-child(3) { animation-delay: 0.2s; }
         .hero__content > *:nth-child(4) { animation-delay: 0.27s; }
         .hero__content > *:nth-child(5) { animation-delay: 0.33s; }
-        .hero__eyebrow {
-            font-family: var(--font-body);
-            font-size: 0.8rem; font-weight: 500;
-            text-transform: uppercase; letter-spacing: 0.2em;
-            color: var(--amber); margin-bottom: 1.5rem;
-        }
         .hero__title {
             font-family: var(--font-display);
             font-size: clamp(2.6rem, 5vw, 4.2rem);
@@ -615,6 +610,8 @@
             .hero__photo-accent { display: none; }
             .hero__cta { margin: 0 auto; }
             .hero__contact { text-align: center; }
+            .hero__contact-sep { display: none; }
+            .hero__contact a { display: table; margin: 0.45rem auto 0; }
             .hero__scroll { display: none; }
         }
         @media (max-width: 760px) {
@@ -719,7 +716,6 @@
         <div class="hero__pattern" aria-hidden="true"></div>
         <div class="hero__inner">
             <div class="hero__content">
-                <p class="hero__eyebrow">Whitby Clinic · Durham Region</p>
                 <h1 class="hero__title">
                     <span class="hero__title-name">Dr. Nihaad <em>Syed</em></span>
                     <span class="hero__title-sub">Family Doctor in Whitby<br>Accepting New Patients</span>
@@ -729,7 +725,7 @@
                     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
                 </a>
                 <p class="hero__contact">
-                    200 Brock St N, Whitby ·
+                    Whitby Clinic, 200 Brock St N<span class="hero__contact-sep"> ·</span>
                     <a href="tel:9056683378">
                         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5C3 3.7 3.7 3 4.5 3h1.7c.4 0 .8.3.9.7l.7 2.4c.1.4 0 .8-.3 1l-1.1.9c.9 1.7 2.3 3.1 4 4l.9-1.1c.3-.3.6-.4 1-.3l2.4.7c.4.1.7.5.7.9v1.7c0 .8-.7 1.5-1.5 1.5h-1C7.4 14 3 9.6 3 4z"/></svg>
                         905-668-3378 (Ext. 3)
