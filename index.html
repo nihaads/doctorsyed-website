@@ -364,7 +364,6 @@
         .about { background: var(--cream); }
         .about__grid { max-width: var(--content-narrow); margin: 0 auto; }
         .about__text p { font-size: 1.05rem; line-height: 1.85; color: var(--charcoal-light); margin-bottom: 1.5rem; }
-        .about__text p:first-of-type { font-size: 1.15rem; color: var(--charcoal); }
         .about__credentials { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; margin-bottom: 2rem; }
         .about__credential {
             position: relative; display: inline-flex; align-items: center; gap: 0.5rem;
@@ -590,6 +589,24 @@
         /* Sections no longer fade in on scroll: content is simply there. Motion is kept for the hero, photo and FAQ. */
         .reveal, .reveal.visible { opacity: 1; transform: none; }
 
+
+        .about__quote--side { display: none; } /* laptop-only copy of the quote, shown beside the heading */
+        /* LAPTOP: About text grows a little on big screens (phones unchanged) */
+        @media (min-width: 1100px) {
+            .about__text p { font-size: clamp(1.05rem, 0.5rem + 0.6vw, 1.2rem); }
+            .about__text > p:first-of-type { font-size: clamp(1.15rem, 0.55rem + 0.65vw, 1.3rem); color: var(--charcoal); } /* opening paragraph slightly larger on laptops */
+            .about .section__heading { font-size: clamp(2.8rem, 0.8rem + 2.2vw, 3.6rem); }
+            .about__quote { font-size: clamp(1.5rem, 0.6rem + 0.9vw, 1.85rem); }
+        }
+        @media (min-width: 1100px) {
+            .about__grid { max-width: calc(var(--content-max) + 60px); }
+            .about__text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: clamp(3rem, 6vw, 6rem); align-items: start; }
+            .about__text > * { grid-column: 2; }
+            .about__head { grid-column: 1; grid-row: 1 / span 12; position: sticky; top: 7rem; }
+            .about__credentials { margin-top: 0.4rem; }
+            .about__quote--flow { display: none; }
+            .about__quote--side { display: block; margin-top: 2.75rem; font-size: clamp(1.6rem, 0.7rem + 1vw, 2.05rem); padding: 2.25rem 2.25rem; }
+        }
         /* RESPONSIVE */
         @media (max-width: 900px) {
             .clinic__grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -752,8 +769,11 @@
         <div class="section__container">
             <div class="about__grid">
                 <div class="about__text reveal">
+                    <div class="about__head">
                     <p class="section__label">About Dr. Syed</p>
                     <h2 class="section__heading">Your family doctor,<br>for the long run</h2>
+                    <blockquote class="about__quote about__quote--side">&ldquo;What is within your control, we will work on. What isn&rsquo;t, we will face together.&rdquo;</blockquote>
+                    </div>
                     <div class="about__credentials">
                         <span class="about__credential" tabindex="0" data-tooltip="Bachelor of Medicine & Surgery, University of Sheffield"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>MBChB</span>
                         <span class="about__credential" tabindex="0" data-tooltip="Certification in Family Medicine, College of Family Physicians of Canada"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="var(--amber)" stroke-width="1.5"><path d="M13.5 4.5 6.5 11.5 2.5 7.5"/></svg>CCFP</span>
@@ -764,7 +784,7 @@
                     <div class="divider"></div>
                     <p>Dr. Syed studied medicine at the University of Sheffield and completed his family medicine training in London, England. His clinical experience spans a wide range of specialties, including psychiatry, emergency medicine, and geriatrics, with dedicated qualifications in child health and women's health. That breadth helps him care for patients at every stage of life, from everyday concerns to more complex medical needs.</p>
                     <p>In appointments he keeps things simple. He listens properly, explains things patiently, and works out a plan with you that fits your life. His interest in the art of communication led him to train in health coaching and to teach students from Imperial College School of Medicine. Bring the will to improve, and he&rsquo;ll help you find the way.</p>
-                    <blockquote class="about__quote">&ldquo;What is within your control, we will work on. What isn&rsquo;t, we will face together.&rdquo;</blockquote>
+                    <blockquote class="about__quote about__quote--flow">&ldquo;What is within your control, we will work on. What isn&rsquo;t, we will face together.&rdquo;</blockquote>
                     <p>Born in India and raised in England, Dr. Syed has lived in four countries and now calls Canada home. He loves to travel, usually with a hiking trail in mind and a camera in hand, and is rarely without a book. He isn&rsquo;t on speaking terms with heights, but can&rsquo;t say no to a rollercoaster. He also remains an optimistic but unconvincing guitarist.</p>
                     <p>Dr. Syed is a UK-trained, certified family physician licensed by the College of Physicians and Surgeons of Ontario. He is accepting new patients at The Whitby Clinic.</p>
                 </div>
