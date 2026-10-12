@@ -467,11 +467,12 @@
         }
         /* Laptops: the heading and intro stay put on the left while the cards stack on the right */
         @media (min-width: 761px) {
-            .services__layout { display: grid; grid-template-columns: 5fr 7fr; column-gap: clamp(3rem, 6vw, 6rem); align-items: start; }
-            .services__side { position: sticky; top: 6rem; }
+            /* --stick: where the left column and the stacked cards hold while you scroll (same as About: a fifth of the way down) */
+            .services__layout { --stick: max(7rem, 20vh); display: grid; grid-template-columns: 5fr 7fr; column-gap: clamp(3rem, 6vw, 6rem); align-items: start; }
+            .services__side { position: sticky; top: var(--stick); transform: translateZ(0); }
             .services__intro { margin-bottom: 2rem; }
             .services__outro { margin-top: 0; padding-top: 1.5rem; }
-            .service-group { padding: 2.25rem 2.25rem 2.4rem; margin-bottom: 1.25rem; top: calc(6rem + var(--n, 0) * 0.75rem); }
+            .service-group { padding: 2.25rem 2.25rem 2.4rem; margin-bottom: 1.25rem; top: calc(var(--stick) + var(--n, 0) * 0.75rem); }
             .service-group h3 { font-size: 1.9rem; }
             .service-group p { font-size: 1.05rem; }
             .service-tags li { font-size: 0.95rem; padding: 0.65rem 0.9rem; }
