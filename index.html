@@ -602,9 +602,9 @@
             .about__text { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); column-gap: clamp(3rem, 6vw, 6rem); align-items: start; }
             .about__text > * { grid-column: 2; }
             .about__head {
-                grid-column: 1; grid-row: 1 / span 12; align-self: center;
-                /* stays in the middle of the screen (below the menu bar) while the text scrolls past */
-                position: sticky; top: calc(50vh + 32px - var(--head-h, 420px) / 2);
+                grid-column: 1; grid-row: 1 / span 12; align-self: start;
+                /* holds about a fifth of the way down the screen (the eye's natural resting point) while the text scrolls past */
+                position: sticky; top: max(7rem, 20vh);
                 transform: translateZ(0); /* own layer, so Safari moves it smoothly */
             }
             .about__credentials { margin-top: 0.4rem; }
@@ -1070,12 +1070,6 @@
                 }), { rootMargin: '0px 0px -18% 0px' });
                 cards.forEach(c => tagObserver.observe(c));
             }
-        }
-
-        // About (laptops): measure the heading + quote block so it can sit in the middle of the screen
-        const aboutHead = document.querySelector('.about__head');
-        if (aboutHead && 'ResizeObserver' in window) {
-            new ResizeObserver(([e]) => aboutHead.style.setProperty('--head-h', e.contentRect.height + 'px')).observe(aboutHead);
         }
 
         // Subtle hero photo parallax
