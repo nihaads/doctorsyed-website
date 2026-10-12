@@ -375,8 +375,12 @@
         .about__credential[data-tooltip]:hover::after,
         .about__credential[data-tooltip].tooltip-active::after { opacity: 1; }
         @media (max-width: 640px) {
-            .about__credential[data-tooltip]::after { white-space: normal; width: max-content; max-width: 220px; left: 0; transform: none; }
+            /* Phones: anchor the tooltip to the whole credentials row so it never pokes past the screen edge */
+            .about__credentials { position: relative; }
+            .about__credential { position: static; }
+            .about__credential[data-tooltip]::after { white-space: normal; width: auto; max-width: none; left: 0; right: 0; transform: none; }
         }
+        html { overflow-x: clip; }
         .about__languages { margin-top: 1rem; font-size: 0.9rem; font-weight: 400; color: var(--charcoal-light); letter-spacing: 0.02em; }
         .about__languages strong { font-weight: 500; color: var(--navy); }
         .about__aside { margin-top: 2.5rem; }
