@@ -24,7 +24,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <!-- Fonts -->
-    <link rel="preload" as="image" type="image/webp" imagesrcset="headshot-600.webp 600w, headshot-900.webp 900w, headshot.webp 1122w" imagesizes="(max-width: 768px) 260px, 380px" fetchpriority="high">
+    <link rel="preload" as="image" type="image/webp" imagesrcset="headshot-600.webp 600w, headshot-900.webp 900w, headshot.webp 1122w" imagesizes="(max-width: 768px) 260px, 520px" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600&family=IM+Fell+English:ital@1&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
@@ -197,7 +197,7 @@
         .nav__phone:hover { color: var(--amber-light) !important; }
         .nav__phone svg { width: 14px; height: 14px; flex-shrink: 0; }
         .hero__contact {
-            margin-top: 1.25rem; font-size: 0.85rem;
+            margin-top: 1.25rem; font-size: clamp(0.85rem, 0.5rem + 0.4vw, 1rem);
             color: rgba(255,255,255,0.72); letter-spacing: 0.02em;
         }
         .hero__contact a {
@@ -209,7 +209,7 @@
         .hero__contact a:hover { color: var(--amber-light); border-color: var(--amber); }
         .hero__contact svg { width: 12px; height: 12px; vertical-align: -1px; margin-right: 0.2rem; }
         .hero__languages {
-            margin-top: 1rem; font-size: 0.85rem;
+            margin-top: 1rem; font-size: clamp(0.85rem, 0.5rem + 0.4vw, 1rem);
             color: rgba(255,255,255,0.88); letter-spacing: 0.02em;
         }
         .grain {
@@ -254,12 +254,14 @@
         }
         .hero__inner {
             position: relative;
-            max-width: var(--content-max);
+            width: 100%;
+            max-width: 1400px; /* the group is centred; this only stops it spreading on very wide monitors */
             margin: 0 auto;
             padding: 7rem 1.5rem 4rem;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: auto auto; /* text and photo stay together as one group */
+            justify-content: center;
+            gap: clamp(3.5rem, 5vw, 6rem);
             align-items: center;
         }
         .hero__content > * { opacity: 0; animation: fadeUp 0.55s var(--ease) forwards; }
@@ -270,22 +272,22 @@
         .hero__content > *:nth-child(5) { animation-delay: 0.33s; }
         .hero__title {
             font-family: var(--font-display);
-            font-size: clamp(2.6rem, 5vw, 4.2rem);
+            font-size: clamp(2.6rem, 1rem + 3.6vw, 5.4rem); /* grows on big laptops instead of stopping at 67px */
             font-weight: 400; line-height: 1.1;
             color: #fff; letter-spacing: -0.01em; margin-bottom: 2rem;
         }
         .hero__title em { font-style: italic; color: var(--amber-light); }
-        .hero__title-name { display: block; }
+        .hero__title-name { display: block; white-space: nowrap; } /* name always on one line beside the photo */
         .hero__title-sub {
             display: block;
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-size: clamp(1.1rem, 0.5rem + 1vw, 1.7rem);
             font-weight: 500; color: rgba(255,255,255,0.75);
             margin-top: 0.5em; line-height: 1.4;
         }
         .hero__cta {
             display: inline-flex; align-items: center; gap: 0.75rem;
-            padding: 1rem 2.2rem; background: var(--amber); color: var(--navy-dark);
-            font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+            padding: 1.1em 2.45em; background: var(--amber); color: var(--navy-dark);
+            font-family: var(--font-body); font-size: clamp(0.9rem, 0.55rem + 0.4vw, 1.05rem); /* grows a little with the name on big screens */ font-weight: 500;
             letter-spacing: 0.08em; text-transform: uppercase; border-radius: 4px;
             border: none; cursor: pointer; transition: background-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
         }
@@ -304,7 +306,7 @@
         }
         .hero__photo-frame {
             position: relative;
-            width: min(100%, 380px);
+            width: clamp(260px, 120px + 21vw, 520px); /* 380 on a 1240 screen, about 480 on a 16-inch MacBook */
             aspect-ratio: 1122 / 1402;
         }
         .hero__photo-frame::before {
@@ -601,6 +603,7 @@
             }
             .hero__photo-wrapper { order: -1; }
             .hero__photo-frame { width: min(100%, 260px); margin: 0 auto; }
+            .hero__inner { justify-content: stretch; }
             .hero__photo-accent { display: none; }
             .hero__cta { margin: 0 auto; }
             .hero__contact { text-align: center; }
@@ -731,7 +734,7 @@
             <div class="hero__photo-wrapper">
                 <div class="hero__photo-frame">
                     <picture>
-                        <source srcset="headshot-600.webp 600w, headshot-900.webp 900w, headshot.webp 1122w" sizes="(max-width: 768px) 260px, 380px" type="image/webp">
+                        <source srcset="headshot-600.webp 600w, headshot-900.webp 900w, headshot.webp 1122w" sizes="(max-width: 768px) 260px, 520px" type="image/webp">
                         <img src="headshot.jpg" alt="Dr. Nihaad Syed, Family Physician at the Whitby Clinic" class="hero__photo" width="1122" height="1402" fetchpriority="high" decoding="async" style="background: url(data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAABwBACdASoQABQAPtFUo0uoJKMhsAgBABoJQBdmSAED4Kqdk4xC1rmgrp8k4AD+aSNU2b8GjmbIrOVyDp2JgTbHbYUGEzrclgy5t8MonyIqJ9yxsRIx8QpgbIylywlguyvn8Pd6nNeGD+t6lzRYMImMewDNcmYb6Gy8e/G1q0dZqOq72vmKT/+C7bNaMEeu2ZTKqXMAAAA=) center/cover;">
                     </picture>
                     <div class="hero__photo-accent" aria-hidden="true"></div>
