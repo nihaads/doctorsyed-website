@@ -448,9 +448,6 @@
             transform-origin: 50% 0; will-change: transform; transform: translateZ(0);
             isolation: isolate;
         }
-        /* Quiet rhythm: every other card a shade deeper, so the stack reads as layers */
-        .service-group:nth-child(even) { background: #F4EEE4; border-color: #E6DED1; }
-        .service-group:nth-child(even) .service-tags li { background: var(--warm-white); }
         /* Shade as a card gets covered: an overlay's opacity (cheap for the phone to draw), not a filter */
         .service-group::after {
             content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
