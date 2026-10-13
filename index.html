@@ -196,17 +196,17 @@
         }
         .nav__phone:hover { color: var(--amber-light) !important; }
         .nav__phone svg { width: 14px; height: 14px; flex-shrink: 0; }
-        /* LAPTOP: a larger menu bar so it holds its own next to the hero, which scales up on big screens. Phones unchanged. */
+        /* LAPTOP: a slightly larger menu bar (about 10%) so it holds its own next to the hero, which scales up on big screens. Phones unchanged. */
         @media (min-width: 1100px) {
-            .nav { padding: 1.25rem clamp(1.5rem, 2.5vw, 3rem); }
-            .nav.scrolled { padding: 0.85rem clamp(1.5rem, 2.5vw, 3rem); }
-            .nav__wordmark { height: 34px; }
-            .nav.scrolled .nav__wordmark { height: 30px; }
-            .nav__links { gap: 2.5rem; margin-right: 2.5rem; }
-            .nav__links a { font-size: 0.95rem; }
-            .nav__phone { font-size: 0.95rem !important; }
-            .nav__phone svg { width: 16px; height: 16px; }
-            .nav__cta { font-size: 0.9rem !important; padding: 0.75rem 1.55rem; }
+            .nav { padding: 1.1rem clamp(1.5rem, 2.5vw, 3rem); }
+            .nav.scrolled { padding: 0.75rem clamp(1.5rem, 2.5vw, 3rem); }
+            .nav__wordmark { height: 31px; }
+            .nav.scrolled .nav__wordmark { height: 27px; }
+            .nav__links { gap: 2.25rem; margin-right: 2.25rem; }
+            .nav__links a { font-size: 0.9rem; }
+            .nav__phone { font-size: 0.9rem !important; }
+            .nav__phone svg { width: 15px; height: 15px; }
+            .nav__cta { font-size: 0.86rem !important; padding: 0.68rem 1.4rem; }
         }
         .hero__contact {
             margin-top: 1.25rem; font-size: clamp(0.85rem, 0.5rem + 0.4vw, 1rem);
