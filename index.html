@@ -631,12 +631,18 @@
         @media (min-width: 1100px) {
             .cta-band { max-width: var(--content-narrow); padding: clamp(3.5rem, 5vw, 4.75rem) 2rem; }
             .faq { padding-bottom: clamp(3.5rem, 5vw, 4.5rem); } /* the band sits closer to the FAQs */
-            .clinic__map { position: sticky; top: max(7rem, 20vh); transform: translateZ(0); } /* map holds in view while the details scroll, like About and Services */
             .cta-band p { margin-bottom: 1.75rem; }
         }
         /* RESPONSIVE */
+        /* Two columns: map runs the full height of the details, top level with Address, bottom level with the parking note */
+        @media (min-width: 901px) {
+            .clinic__map { aspect-ratio: auto; align-self: stretch; min-height: 400px; }
+        }
         @media (max-width: 900px) {
             .clinic__grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+        @media (max-width: 640px) {
+            .clinic__map { aspect-ratio: 1 / 1; } /* square on phones, a bigger map to read */
         }
         @media (max-width: 768px) {
             .hero__inner {
