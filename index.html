@@ -437,11 +437,12 @@
         .services { background: var(--cream); }
         .services__intro { max-width: var(--content-narrow); margin-bottom: 2.5rem; }
         .services__intro p { font-size: 1.1rem; line-height: 1.8; color: var(--charcoal-light); }
-        .services__groups { display: block; }
+        /* every card the height of the tallest (phones and laptops), so at the end of the list the pile settles evenly instead of taller cards poking out above the last one */
+        .services__groups { display: grid; grid-auto-rows: 1fr; row-gap: 1rem; }
         .service-group {
             position: sticky; top: calc(4.75rem + var(--n, 0) * 0.6rem);
             background: var(--warm-white); border: 1px solid var(--border-light); border-radius: 24px;
-            padding: 1.5rem 1.4rem 1.6rem; margin-bottom: 1rem;
+            padding: 1.5rem 1.4rem 1.6rem;
             box-shadow: 0 -6px 24px rgba(27, 42, 61, 0.06);
             transform-origin: 50% 0; will-change: transform; transform: translateZ(0);
             isolation: isolate;
@@ -475,8 +476,7 @@
             .services__intro { margin-bottom: 2rem; }
             .services__outro { margin-top: 0; padding-top: 1.5rem; }
             .service-group { padding: 2.25rem 2.25rem 2.4rem; margin-bottom: 0; top: calc(var(--stick) + var(--n, 0) * 0.75rem); }
-            /* every card the height of the tallest, so at the end of the list the pile settles evenly instead of taller cards poking out */
-            .services__groups { display: grid; grid-auto-rows: 1fr; row-gap: 1.25rem; }
+            .services__groups { row-gap: 1.25rem; }
             .service-group h3 { font-size: 1.9rem; }
             .service-group p { font-size: 1.05rem; }
             .service-tags li { font-size: 0.95rem; padding: 0.65rem 0.9rem; }
